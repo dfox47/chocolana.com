@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+
+
+<html class="{{ html_class }}" dir="{{ direction }}" lang="{{ lang }}">
+
+
+
+<head>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, user-scalable=yes, maximum-scale=5" name="viewport" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>{{ title }}</title>
+
+	<base href="{{ base }}" />
+
+
+
+	{% if description %}
+		<meta name="description" content="{{ description }}" />
+	{% endif %}
+
+	{% if keywords %}
+		<meta name="keywords" content="{{ keywords }}" />
+	{% endif %}
+
+
+
+	<link rel="icon" href="/image/icons/favicon/favicon.ico" type="image/x-icon" />
+
+	<link rel="icon" type="image/png" href="/image/icons/favicon/16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="/image/icons/favicon/32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/image/icons/favicon/96.png" sizes="96x96" />
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/image/icons/favicon/57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="/image/icons/favicon/60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="/image/icons/favicon/72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="/image/icons/favicon/76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="/image/icons/favicon/114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="/image/icons/favicon/120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="/image/icons/favicon/144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="/image/icons/favicon/152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/image/icons/favicon/180.png" />
+
+
+
+	{# all scripts in one file with GULP#}
+{#	<script src="/catalog/view/theme/chocolana/all.min.js?v{{ "now"|date("Ymd") }}"></script>#}
+
+
+
+	{#<link href="/catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />#}
+
+{#	<script src="/catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>#}
+
+	<link href="/catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+	{#<link href="/catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">#}
+
+
+
+	{% for style in styles %}
+		<link href="{{ style.href }}" rel="{{ style.rel }}" media="{{ style.media }}" />
+	{% endfor %}
+
+	{% for script in scripts %}
+		<script src="{{ script }}"></script>
+	{% endfor %}
+
+
+
+	{% for link in links %}
+		<link href="{{ link.href }}" rel="{{ link.rel }}" />
+	{% endfor %}
+
+	{% for analytic in analytics %}
+		{{ analytic }}
+	{% endfor %}
+
+
+
+	{# all styles in one file with GULP #}
+	<link href="/catalog/view/theme/chocolana/styles.min.css?v{{ "now"|date("Ymd") }}" rel="stylesheet" />
+
+	<meta name="facebook-domain-verification" content="j2huho5hlos0tw2hjg0td7yxzfpyq5" />
+
+
+
+	<!-- Facebook Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t,s)}(window, document,'script',
+				'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '4046062632174464');
+		fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4046062632174464&ev=PageView&noscript=1" /></noscript>
+	<!-- End Facebook Pixel Code -->
+</head>
+
+
+
+<body>
+
+
+
+<div class="header__mobile_menu__bg"></div>
+
+<div class="header">
+	<div class="wrap">
+		<div class="header__wrap">
+			<div class="header__mobile_menu__toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+
+
+			{#<a class="logo" href="/"><img class="js-svg" src="/image/logo.png" alt="chocolana.com" /></a>#}
+			<a class="logo js-scroll_to" href="javascript:void(0);" data-link="about_us"><img class="js-svg" src="/image/logo.svg" alt="logo" /></a>
+
+			<ul class="topmenu">
+				{#<li><a class="js-scroll_to" href="javascript:void(0);" data-link="about_us">{{ text_about_us }}</a></li>#}
+				<li><a class="js-scroll_to" href="javascript:void(0);" data-link="advantages">{{ text_advantages }}</a></li>
+				{#<li><a class="js-scroll_to" href="javascript:void(0);" data-link="product">{{ text_product }}</a></li>#}
+				<li><a class="js-scroll_to" href="javascript:void(0);" data-link="assortment">{{ text_assortment }}</a></li>
+				<li><a class="js-scroll_to" href="javascript:void(0);" data-link="sets">{{ text_sets }}</a></li>
+				<li><a class="js-scroll_to" href="javascript:void(0);" data-link="constructor">{{ text_constructor }}</a></li>
+				<li><a class="js-scroll_to" href="javascript:void(0);" data-link="cart">{{ text_cart_new }}</a></li>
+
+				<li><a class="header__phone js-phone" href="javascript:void(0);">{{ telephone }}</a></li>
+
+				<li class="lang__mobile">
+					{{ language }}
+				</li>
+			</ul>
+
+
+
+			<div class="header__cart js-scroll_to" data-link="cart">
+				<span></span>
+
+				<img class="js-svg" src="/image/icons/cart.svg" alt="" />
+			</div>
+
+			<div class="lang__desktop">
+				{{ language }}
+			</div>
+		</div>
+	</div>
+</div>
+
+

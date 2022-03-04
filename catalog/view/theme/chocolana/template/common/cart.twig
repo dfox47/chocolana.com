@@ -1,0 +1,95 @@
+<div id="cart">
+	<button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}" class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
+
+
+
+	<div id="cart__content" class="cart__content">
+		{% if products or vouchers %}
+			<table class="cart_table">
+				{% for product in products %}
+					<tr>
+						{% if product.thumb %}
+							<td class="text-center">
+								<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail" /></a>
+							</td>
+						{% endif %}
+
+						<td class="cart_table__options">
+							{% if product.option %}
+								<div class="cart__layout cart__layout__{{ product.model }}">
+									{% for option in product.option %}
+										{% set i = 1 %}
+
+{#										{% if file_exists('/image/calc__email/{{ option.value }}.jpg') %}#}
+{#											The file exists !#}
+{#										{% else %}#}
+{#											The file is not found !#}
+{#										{% endif %}#}
+
+										<div class="cart__option_item" data-option-id="{{ i }}">
+											<img src='/image/calc__email/{{ option.value }}.jpg' alt='{{ option.value }}' title='{{ option.value }}' />
+										</div>
+
+										{% set i = i + 1 %}
+									{% endfor %}
+								</div>
+							{% endif %}
+						</td>
+
+						<td class="cart__product_name">
+							<span>{{ product.name }}</span>
+
+							{% if product.recurring %}
+								<br />
+								- <small>{{ text_recurring }} {{ product.recurring }}</small>
+							{% endif %}
+						</td>
+
+						<td class="cart__quantity__wrap">
+							<div class="cart__quantity__wrap2">
+								<span class="cart__quantity__btn" data-quantity="-1">-</span>
+
+								<span class="cart__quantity">{{ product.quantity }}</span>
+
+								<span class="cart__quantity__btn" data-quantity="1">+</span>
+
+								<div class="hidden">
+									<form action="/" method="post">
+										<input type="hidden" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" />
+									</form>
+								</div>
+							</div>
+						</td>
+
+						<td class="cart_table__price">{{ product.total }}</td>
+
+						<td class="cart_table__remove">
+							<div class="btn btn__close js-cart__product_remove" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}">
+								<span></span>
+								<span></span>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+
+
+
+				{% for voucher in vouchers %}
+					<tr>
+						<td class="text-center"></td>
+						<td class="text-left">{{ voucher.description }}</td>
+						<td class="text-right">x&nbsp;1</td>
+						<td class="text-right">{{ voucher.amount }}</td>
+						<td class="text-center text-danger"><button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<div class="cart__empty">
+				<p>{{ text_empty }}</p>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+

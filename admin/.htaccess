@@ -1,0 +1,10 @@
+AuthType Basic
+
+AuthName "Only chocolates!"
+
+AuthUserFile /home/c/ct11905/chocolana.com/public_html/admin/.htpasswd
+
+Require valid-user
+<Files .htpasswd>
+	deny from all
+</Files>

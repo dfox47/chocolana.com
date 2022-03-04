@@ -1,0 +1,275 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+	    <form action="{{ request_courier }}" method="post">
+        <input type="hidden" name="selected[]" value="{{ order_id }}" />
+        <input type="submit" name="" value="{{ button_courier }}" class="btn btn-primary" />
+        <a href="{{ cancel_loading }}" data-toggle="tooltip" title="{{ button_cancel_loading }}" class="btn btn-default">{{ button_cancel_loading }}</a>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </form>
+	  </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+     <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+	 <div class="panel-heading">
+		<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ heading_title }}</h3>
+     </div>
+     <div class="panel-body">
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td style="width: 300px;">{{ entry_loading_num }}</td>
+        <td>{{ loading['loading_num'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_is_imported }}</td>
+        <td>{% if loading['is_imported'] %}
+          {{ text_yes }}
+          {% else %}
+          {{ text_no }}
+          {% endif %}
+      </tr>
+      <tr>
+        <td>{{ entry_storage }}</td>
+        <td>{{ loading['storage'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_person }}</td>
+        <td>{{ loading['receiver_person'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_person_phone }}</td>
+        <td>{{ loading['receiver_person_phone'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_courier }}</td>
+        <td>{{ loading['receiver_courier'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_courier_phone }}</td>
+        <td>{{ loading['receiver_courier_phone'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_time }}</td>
+        <td>{{ loading['receiver_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_get_sum }}</td>
+        <td>{{ loading['cd_get_sum'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_get_time }}</td>
+        <td>{{ loading['cd_get_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_send_sum }}</td>
+        <td>{{ loading['cd_send_sum'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_send_time }}</td>
+        <td>{{ loading['cd_send_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_total_sum }}</td>
+        <td>{{ loading['total_sum'] }} {{ loading['currency'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_sender_ammount_due }}</td>
+        <td>{{ loading['sender_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_ammount_due }}</td>
+        <td>{{ loading['receiver_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_other_ammount_due }}</td>
+        <td>{{ loading['other_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_delivery_attempt_count }}</td>
+        <td>{{ loading['delivery_attempt_count'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_blank_yes }}</td>
+        <td>{% if loading['blank_yes'] %}
+          <a href="{{ loading['blank_yes'] }}" target="_blank">{{ text_view }}</a>
+          {% endif %}
+	  	</td>
+      </tr>
+      <tr>
+        <td>{{ entry_blank_no }}</td>
+        <td>{% if loading['blank_no'] %}
+          <a href="{{ loading['blank_no'] }}" target="_blank">{{ text_view }}</a>
+          {% endif %}
+	  	</td>
+      </tr>
+      {% if loading['pdf_url'] %}
+      <tr>
+        <td>{{ entry_pdf_url }}</td>
+        <td><a href="{{ loading['pdf_url'] }}" target="_blank">{{ text_view }}</a></td>
+      </tr>
+      {% endif %}
+    </table>
+    {% if loading['trackings'] %}
+    <b>{{ entry_tracking }}</b>
+    <table class="list">
+      <thead>
+        <tr>
+          <td class="left">{{ entry_time }}</td>
+          <td class="left">{{ entry_is_receipt }}</td>
+          <td class="left">{{ entry_event }}</td>
+          <td class="left">{{ entry_name }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tracking in loading['trackings'] %}
+        <tr>
+          <td class="left">{{ tracking['time'] }}</td>
+          <td class="left">{{ tracking['is_receipt'] }}</td>
+          <td class="left">{{ tracking['event'] }}</td>
+          <td class="left">{{ tracking['name'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% if loading['next_parcels'] %}
+    <b>{{ entry_next_parcels }}</b>
+    {% for next_parcel in loading['next_parcels'] %}
+    <table class="form">
+      <tr>
+        <td style="width: 300px;">{{ entry_loading_num }}</td>
+        <td>{{ next_parcel['loading_num'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_is_imported }}</td>
+        <td>{% if next_parcel['is_imported'] %}
+          {{ text_yes }}
+          {% else %}
+          {{ text_no }}
+          {% endif %}
+	  	</td>
+      </tr>
+      <tr>
+        <td>{{ entry_storage }}</td>
+        <td>{{ next_parcel['storage'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_person }}</td>
+        <td>{{ next_parcel['receiver_person'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_person_phone }}</td>
+        <td>{{ next_parcel['receiver_person_phone'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_courier }}</td>
+        <td>{{ next_parcel['receiver_courier'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_courier_phone }}</td>
+        <td>{{ next_parcel['receiver_courier_phone'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_time }}</td>
+        <td>{{ next_parcel['receiver_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_get_sum }}</td>
+        <td>{{ next_parcel['cd_get_sum'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_get_time }}</td>
+        <td>{{ next_parcel['cd_get_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_send_sum }}</td>
+        <td>{{ next_parcel['cd_send_sum'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_cd_send_time }}</td>
+        <td>{{ next_parcel['cd_send_time'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_total_sum }}</td>
+        <td>{{ next_parcel['total_sum'] }} {{ next_parcel['currency'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_sender_ammount_due }}</td>
+        <td>{{ next_parcel['sender_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_receiver_ammount_due }}</td>
+        <td>{{ next_parcel['receiver_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_other_ammount_due }}</td>
+        <td>{{ next_parcel['other_ammount_due'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_delivery_attempt_count }}</td>
+        <td>{{ next_parcel['delivery_attempt_count'] }}</td>
+      </tr>
+      <tr>
+        <td>{{ entry_blank_yes }}</td>
+        <td>{% if next_parcel['blank_yes'] %}
+          <a href="{{ next_parcel['blank_yes'] }}" target="_blank">{{ text_view }}</a>
+          {% endif %}
+	  	</td>
+      </tr>
+      <tr>
+        <td>{{ entry_blank_no }}</td>
+        <td>{% if next_parcel['blank_no'] %}
+          <a href="{{ next_parcel['blank_no'] }}" target="_blank">{{ text_view }}</a>
+          {% endif %}
+	  	</td>
+      </tr>
+      {% if next_parcel['pdf_url'] %}
+      <tr>
+        <td>{{ entry_pdf_url }}</td>
+        <td><a href="{{ next_parcel['pdf_url'] }}" target="_blank">{{ text_view }}</a></td>
+      </tr>
+      {% endif %}
+    </table>
+    {% if next_parcel['trackings'] %}
+    <b>{{ entry_tracking }}</b>
+    <table class="list">
+      <thead>
+        <tr>
+          <td class="left">{{ entry_time }}</td>
+          <td class="left">{{ entry_is_receipt }}</td>
+          <td class="left">{{ entry_event }}</td>
+          <td class="left">{{ entry_name }}</td>
+        </tr>
+      </thead>
+      <tbody>
+	  	{% for tracking in next_parcel['trackings'] %}
+        <tr>
+          <td class="left">{{ tracking['time'] }}</td>
+          <td class="left">{{ tracking['is_receipt'] }}</td>
+          <td class="left">{{ tracking['event'] }}</td>
+          <td class="left">{{ tracking['name'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    </div>
+  </div>
+</div>
+{{ footer }}

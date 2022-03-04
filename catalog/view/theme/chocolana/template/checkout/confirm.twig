@@ -1,0 +1,79 @@
+{#{% if not redirect %}#}
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+			<tr>
+				<td class="text-left">{{ column_name }}</td>
+				<td class="text-left">{{ column_model }}</td>
+				<td class="text-right">{{ column_quantity }}</td>
+				<td class="text-right">{{ column_price }}</td>
+				<td class="text-right">{{ column_total }}</td>
+			</tr>
+			</thead>
+
+
+			<tbody>
+			{% for product in products %}
+				<tr class="product__model__{{ product.model }}">
+					<td class="text-left">
+						<a href="{{ product.href }}">{{ product.name }}</a>
+
+						{% if product.option %}
+							{% set i = 1 %}
+
+							<div class="product__option">
+								{% for option in product.option %}
+									<div class="product__option_item" data-option-id="{{ i }}">
+										<img src='/image/calc__email/{{ option.value }}.jpg' alt='{{ option.value }}' />
+									</div>
+
+									{% set i = i + 1 %}
+								{% endfor %}
+							</div>
+						{% endif %}
+
+						{% if product.recurring %}
+							<br />
+							<span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
+						{% endif %}
+					</td>
+
+					<td class="text-left">{{ product.model }}</td>
+					<td class="text-right">{{ product.quantity }}</td>
+					<td class="text-right">{{ product.price }}</td>
+					<td class="text-right">{{ product.total }}</td>
+				</tr>
+			{% endfor %}
+
+			{% for voucher in vouchers %}
+				<tr>
+					<td class="text-left">{{ voucher.description }}</td>
+					<td class="text-left"></td>
+					<td class="text-right">1</td>
+					<td class="text-right">{{ voucher.amount }}</td>
+					<td class="text-right">{{ voucher.amount }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+
+
+
+			<tfoot>
+			{% for total in totals %}
+				<tr>
+					<td colspan="4" class="text-right"><strong>{{ total.title }}:</strong></td>
+					<td class="text-right">{{ total.text }}</td>
+				</tr>
+			{% endfor %}
+			</tfoot>
+		</table>
+	</div>
+
+	{{ payment }}
+{#{% else %}#}
+	{#<script><!--#}
+		{#console.log('error at document confirm.twig');#}
+
+		{#location = '{{ redirect }}';#}
+		{#//--></script>#}
+{#{% endif %}#}

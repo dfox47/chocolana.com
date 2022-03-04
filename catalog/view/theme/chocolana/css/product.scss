@@ -1,0 +1,162 @@
+@charset "utf-8";
+// sCSS Document
+
+
+
+// product [START]
+.product {
+	height: 100vh;
+	padding: 100px 0 0;
+}
+
+
+
+// product_added_to_cart [START]
+.product_added_to_cart {
+	align-items: center;
+	display: none;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99;
+
+	.btn__close {
+		position: absolute;
+		right: 12px;
+		top: 12px;
+	}
+}
+
+.product_added_to_cart__active {
+	.product_added_to_cart {
+		display: flex;
+	}
+}
+
+.product_added_to_cart__bg {
+	background-color: #000;
+	display: block;
+	height: 100%;
+	left: 0;
+	opacity: .5;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.product_added_to_cart__content {
+	background-color: #fff;
+	color: #000;
+	display: block;
+	font-size: 20px;
+	padding: 80px;
+	position: relative;
+	text-transform: uppercase;
+	z-index: 3;
+
+	a,
+	a:visited {
+		color: #000;
+		display: inline-block;
+		text-decoration: underline;
+		transition: $transition;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+// product_added_to_cart [END]
+
+
+
+.product__model__box__5_5 {
+	.product__option_item {
+		width: 18%;
+	}
+}
+
+.product__model__box__7_2 {
+	.product__option_item {
+		width: 13%;
+	}
+}
+
+
+
+.product__option {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 8px 0;
+	width: 200px;
+}
+
+.product__option_item {
+	align-items: center;
+	background-color: $c_sweet__bg_default;
+	border: 2px solid rgba(#000, .3);
+	border-radius: 8px;
+	color: #fff;
+	display: flex;
+	font-size: 18px;
+	font-weight: 700;
+	justify-content: center;
+	margin: 0 0 2%;
+	overflow: hidden;
+	position: relative;
+	text-transform: uppercase;
+	width: 23%;
+
+	&:after {
+		content: "";
+		display: block;
+		padding: 100% 0 0;
+		width: 100%;
+	}
+
+	img {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
+}
+
+.product__option_name {
+	display: none;
+	margin: 0 8px 0 0;
+}
+
+.product__option_val {
+	display: none;
+}
+
+
+
+.product__radio {}
+
+.product__radio_list {
+	align-items: flex-end;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.product__radio_list__item {
+	margin: 0 0 16px 0;
+	width: 50px;
+}
+// product [END]
+
+
+

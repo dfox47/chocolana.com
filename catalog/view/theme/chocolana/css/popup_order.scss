@@ -1,0 +1,80 @@
+@charset "utf-8";
+// sCSS Document
+// Powered by foxartbox | info@foxartbox.com
+
+
+
+.popup_order {}
+
+.popup_order__active {
+	.popup_order__img {
+		img {
+			animation: spin 2s linear infinite;
+		}
+	}
+
+	.popup_order__loading {
+		display: flex;
+	}
+}
+
+.popup_order__bg {
+	background-color: #000;
+	height: 100%;
+	left: 0;
+	opacity: .5;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.popup_order__close {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	z-index: 3;
+}
+
+.popup_order__complete {
+	.popup_order__img {
+		display: none;
+	}
+
+	.popup_order__content {
+		display: block;
+	}
+}
+
+.popup_order__content {
+	background-color: #fff;
+	color: #000;
+	display: none;
+	padding: 80px;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	z-index: 3;
+}
+
+.popup_order__img {
+	position: relative;
+	width: 200px;
+
+	img {
+		width: 100%;
+	}
+}
+
+.popup_order__loading {
+	align-items: center;
+	display: none;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
+
+

@@ -1,0 +1,1338 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        {% if shipping_econt_logged and cities %}
+        <button type="submit" form="form-econt" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        {% endif %}
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-econt" class="form-horizontal">
+        {% if not shipping_econt_logged %}
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_test"><span data-toggle="tooltip" title="{{ text_environment_info }}">{{ entry_test }}</span></label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_test" name="shipping_econt_test">
+                {% if shipping_econt_test %}
+                <option value="0">{{ text_real_environment }}</option>
+                <option value="1" selected="selected">{{ text_demo_environment }}</option>
+                {% else %}
+                <option value="0" selected="selected">{{ text_real_environment }}</option>
+                <option value="1">{{ text_demo_environment }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="econt_username">{{ entry_username }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_username" name="shipping_econt_username" value="{{ shipping_econt_username }}" placeholder="{{ shipping_econt_username }}" class="form-control" />
+              {% if error_username %}
+              <span class="text-danger">{{ error_username }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="econt_password">{{ entry_password }}</label>
+            <div class="col-sm-9">
+              <input type="password" id="econt_password" name="shipping_econt_password" value="{{ shipping_econt_password }}" placeholder="{{ shipping_econt_password }}" class="form-control" />
+              {% if error_password %}
+              <span class="text-danger">{{ error_password }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <a id="login_button" onclick="econtButtonLogin();" class="btn btn-primary"><span id="login_text">{{ button_login }}</span></a>
+              <span id="login_error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+              <h3><b>{{ entry_login_text1 }}</b></h3>
+              {{ entry_login_text2 }}<br /><br />
+              {{ entry_login_text3 }}<br /><br />
+              {{ entry_login_text4 }}<br /><br />
+              <h3><b>{{ entry_login_text5 }}</b></h3>
+              <a href="http://www.econt.com/" target="_blank">{{ entry_login_text6 }}</a><br /><br />
+              <h3><b>{{ entry_login_text7 }}</b></h3>
+              {{ entry_login_text8 }}<br /><br />
+              {{ entry_login_text9 }} <a href="mailto:info@econt.com">info@econt.com</a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        {% if show_econt_modal %}
+        <div id="modal-responsibility" class="modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-danger"><i class="fa fa-exclamation-triangle"></i> {{ text_warning_econt_title }}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ text_warning_econt_description }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="panel-body" id="additional_table">
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_general_settings }}</b></h4>
+            </div>
+          </div>
+          {% if cities %}
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_status" name="shipping_econt_status">
+                {% if shipping_econt_status %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          {% endif %}
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <a id="get_data" onclick="if (!$(this).attr('disabled')) { refreshData(); }" class="btn btn-primary"><span id="get_data_text">{{ button_get_data }}</span></a>
+              <span id="data_error">{% if error_get_data %}{{ error_get_data }}{% endif %}</span>
+              <div>{{ text_get_data_info }}</div>
+              <div>{{ text_sync_info }}: <b>{{ cron_path }}</b></div>
+            </div>
+          </div>
+          {% if cities %}
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_customer_settngs }}</b></h4>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_name">{{ entry_username }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_name" value="{{ shipping_econt_username }}" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <a onclick="econtButtonLogout();" class="btn btn-primary"><span>{{ entry_button_logout }}</span></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_client_id">{{ entry_select_client }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_client_id" name="shipping_econt_client_id">
+              <option value="">{{ text_please_choose_client }}</option>
+                {% for client in clients %}
+                  <option value="{{ client.id }}"{% if client.id == shipping_econt_client_id %} selected="selected"{% endif %}>{{ client.name }}</option>
+                {% endfor %}
+              </select>
+              {% if error_client %}
+              <span class="text-danger">{{ error_client }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_name">{{ entry_name }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_name" value="{{ shipping_econt_name }}" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_name_person">{{ entry_name_person }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_name_person" value="{{ shipping_econt_name_person }}" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_name_domain">{{ entry_domain }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_name_domain" value="{{ shipping_econt_domain }}" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_address_id">{{ entry_addresses }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_address_id" name="shipping_econt_address_id" style="margin-bottom: 5px;">
+              {% if shipping_econt_address_list|length > 0 %}
+                {% for key, address in shipping_econt_address_list %}
+                  <option value="{{ key }}"{% if shipping_econt_address_id == key %} selected="selected"{% endif %}>{{ address }}</option>
+                {% endfor %}
+              {% else %}
+                <option value="0">{{ text_get_address }}</option>
+              {% endif %}
+              </select>
+              <div>{{ text_address_choose_info }}</div>
+              {% if error_addresses %}
+              <span class="text-danger">{{ error_addresses }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_shipping_from">{{ entry_shipping_from }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_shipping_from" name="shipping_econt_shipping_from">
+                {% if shipping_econt_shipping_from == 'OFFICE' %}
+                <option value="DOOR">{{ text_from_door }}</option>
+                <option value="OFFICE" selected="selected">{{ text_from_office }}</option>
+                {% else %}
+                <option value="DOOR" selected="selected">{{ text_from_door }}</option>
+                <option value="OFFICE">{{ text_from_office }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="office_city_id" {% if shipping_econt_shipping_from != 'OFFICE' %}style="display: none"{% endif %}>
+            <label class="col-sm-3 control-label" for="econt_office_city_id">{{ entry_city }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_office_city_id" name="shipping_econt_office_city_id" onchange="getOfficesByCityId(0);">
+                <option value="0">{{ text_select }}</option>
+                {% for city in cities %}
+                {% if city['city_id'] == shipping_econt_office_city_id %}
+                <option value="{{ city['city_id'] }}" selected="selected">{{ city['name'] }}</option>
+                {% else %}
+                <option value="{{ city['city_id'] }}">{{ city['name'] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="office_id" {% if shipping_econt_shipping_from != 'OFFICE' %}style="display: none"{% endif %}>
+            <label class="col-sm-3 control-label" for="econt_office_id">{{ entry_office }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_office_id" name="shipping_econt_office_id" onchange="getOffice(0);" style="width: 400px;">
+                <option value="0">{{ text_select }}</option>
+                {% set is_machine = 0 %}
+                {% for office in offices %}
+                {% if office['office_id'] == shipping_econt_office_id %}
+                {% if office['is_machine'] == 1 %}{% set is_machine = 1 %}{% endif %}
+                <option value="{{ office['office_id'] }}" selected="selected">{{ office['office_code'] }}, {{ office['name'] }}, {{ office['address'] }}</option>
+                {% else %}
+                <option value="{{ office['office_id'] }}">{{ office['office_code'] }}, {{ office['name'] }}, {{ office['address'] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+              {% if error_office %}
+              <span class="text-danger">{{ error_office }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group" id="office_code" {% if shipping_econt_shipping_from != 'OFFICE' %}style="display: none"{% endif %}>
+            <label class="col-sm-3 control-label">{{ entry_office_code }}</label>
+            <div class="col-sm-9">
+              <input type="text" id="econt_office_code" name="shipping_econt_office_code" value="{{ shipping_econt_office_code }}" size="3" readonly placeholder="{{ shipping_econt_office_code }}" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group" id="office_locator" {% if shipping_econt_shipping_from != 'OFFICE' %} style="display: none;"{% endif %}>
+            <label class="col-sm-3 control-label">&nbsp;</label>
+            <div class="col-sm-9">
+               <a href="javascript:void(0);" id="office_locator_button" class="btn btn-primary" title="{{ button_office_locator }}"><span>{{ button_office_locator }}</span></a>
+            </div>
+          </div>
+          <div class="form-group" id="aps_info" {% if is_machine == 0 or shipping_econt_shipping_from != 'OFFICE' %}style="display: none"{% endif %}>
+            <label class="col-sm-3 control-label" for="econt_aps_info"></label>
+            <div class="col-sm-9">
+              <b>{{ text_applicabl_services }}</b>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_instruction">{{ entry_instructions }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_instruction" style="margin-bottom: 5px;" name="shipping_econt_instruction">
+                {% if shipping_econt_instruction %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <span id="get_instructions" {% if not shipping_econt_instruction %} style="display: none;"{% endif %}>
+                <a onclick="getInstructionsForm();" class="btn btn-primary"><span>{{ button_instructions_form }}</span></a>
+              </span>
+              <span id="instructions_error"></span>
+              <div id="instructions"{% if not shipping_econt_instruction %} style="display: none;"{% endif %}>
+                <table class="table table-bordered table-hover" class="list" style="margin-bottom: 0;">
+                  <thead>
+                    <tr>
+                      <td class="left">{{ entry_instructions_type }}</td>
+                      <td class="left">{{ entry_instructions_list }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for instructions_type in instructions_types %}
+                    <tr>
+                      <td class="left">{{ instructions_type['title'] }}</td>
+                      <td class="left">
+                        <select class="form-control" id="econt_instructions_id_{{ instructions_type['code'] }}" name="shipping_econt_instructions_select[{{ instructions_type['code'] }}]" style="width: 300px;">
+                          <option value="">{{ text_get_instructions }}</option>
+                          {% if shipping_econt_instructions_id[instructions_type['code']] is defined %}
+                            {% for instructions_id in shipping_econt_instructions_id[instructions_type['code']] %}
+                            {{ shipping_econt_instructions_select[instructions_type['code']] }}
+                              {% if shipping_econt_instructions_select[instructions_type['code']] == instructions_id %}
+                              <option value="{{ instructions_id }}" selected="selected">{{ instructions_id }}</option>
+                              {% else %}
+                              <option value="{{ instructions_id }}">{{ instructions_id }}</option>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        </select>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <div>{{ text_instruction_info }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_post_pack_enabled">{{ entry_post_pack_enabled }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_post_pack_enabled" name="shipping_econt_post_pack_enabled">
+                {% if shipping_econt_post_pack_enabled %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <div>{{ text_post_pack_info }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_main_settings }}</b></h4>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" or="econt_side">{{ entry_side }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_side" name="shipping_econt_side" onchange="if ($(this).val() == 'SENDER') { $('#econt_payment_method').show(); } else { $('#econt_payment_method').hide(); }">
+                {% if shipping_econt_side == 'SENDER' %}
+                <option value="RECEIVER">{{ text_receiver }}</option>
+                <option value="SENDER" selected="selected">{{ text_sender }}</option>
+                {% else %}
+                <option value="RECEIVER" selected="selected">{{ text_receiver }}</option>
+                <option value="SENDER">{{ text_sender }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="econt_payment_method" {% if shipping_econt_side != 'SENDER' %} style="display: none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="econt_payment_method_select">{{ entry_payment_method }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_payment_method_select" name="shipping_econt_payment_method" onchange="if ($(this).val() == 'CREDIT') { $('#key_word').show(); } else { $('#key_word').hide(); }">
+                {% for payment_method in payment_methods %}
+                {% if payment_method['code'] == shipping_econt_payment_method %}
+                <option value="{{ payment_method['code'] }}" selected="selected">{{ payment_method['title'] }}</option>
+                {% else %}
+                <option value="{{ payment_method['code'] }}">{{ payment_method['title'] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+              <span id="key_word" {% if shipping_econt_payment_method != 'CREDIT' %} style="display: none;"{% endif %}>
+                <label class="control-label" for="econt_key_word">{{ entry_key_word }}</label>
+                <input class="form-control" type="text" id="econt_key_word" readonly="readonly" name="shipping_econt_key_word" value="{{ shipping_econt_key_word }}" />
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_fixed_price }}</b></h4>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_shipping_payment_enabled">{{ entry_shipping_payment_enabled }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_shipping_payment_enabled" name="shipping_econt_shipping_payment_enabled" onchange="if ($(this).val() == '1') { $('#shipping_econt_shipping_payments_form').show(); } else { $('#shipping_econt_shipping_payments_form').hide(); }">
+                {% if shipping_econt_shipping_payment_enabled %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="shipping_econt_shipping_payments_form"{% if not shipping_econt_shipping_payment_enabled %} style="display: none;"{% endif %}>
+            <div class="col-sm-12">
+              <b>{{ entry_condition_text1 }}</b><br /><br />
+              {{ entry_condition_text2 }}<br /><br />
+              {{ entry_condition_text3 }}<br ><br />
+              {{ entry_condition_text4 }}<br /><br />
+              {{ entry_condition_text5 }}<br /><br />
+              {{ entry_condition_text6 }}<br /><br />
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <td>{{ entry_order_condition }}</td>
+                    <td>{{ entry_order_criteria }}</td>
+                    <td>{{ entry_order_value }}</td>
+                    <td>{{ entry_receiver_amount_door }}</td>
+                    <td>{{ entry_receiver_amount_office }}</td>
+                    <td>{{ entry_receiver_amount_aps }}</td>
+                    <td>{{ entry_order_priority }}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td colspan="7">&nbsp;</td>
+                    <td class="left"><a onclick="addShippingPayment();" class="btn btn-primary"><span>{{ button_add }}</span></a></td>
+                  </tr>
+                </tfoot>
+                <tbody id="econt_shipping_payments">
+                  {% set shipping_payment_row = 0 %}
+                  {% for shipping_payment in shipping_econt_shipping_payments %}
+                  <tr id="econt_shipping_payment_{{ shipping_payment_row }}">
+                    <td class="left">
+                      <select name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][condition]">
+                        <option value="cart"{% if shipping_payment['condition'] == 'cart' %} selected="selected"{% endif %}>{{ text_total_items_cart }}</option>
+                        <option value="weight"{% if shipping_payment['condition'] == 'weight' %} selected="selected"{% endif %}>{{ text_total_weight_cart }}</option>
+                        <option value="total_amount"{% if shipping_payment['condition'] == 'total_amount' %} selected="selected"{% endif %}>{{ text_total_amount_cart }}</option>
+                      </select>
+                    </td>
+                    <td class="left">
+                      <select name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][criteria]">
+                        <option value="lt"{% if shipping_payment['criteria'] == 'lt' %} selected="selected"{% endif %}>{{ text_is_less }}</option>
+                        <option value="gt"{% if shipping_payment['criteria'] == 'gt' %} selected="selected"{% endif %}>{{ text_is_more }}</option>
+                      </select>
+                    </td>
+                    <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][criteria_value]" value="{{ shipping_payment['criteria_value'] }}" /></td>
+                    <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][amount_door]" value="{{ shipping_payment['amount_door'] }}" /></td>
+                    <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][amount_office]" value="{{ shipping_payment['amount_office'] }}" /></td>
+                    <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][amount_aps]" value="{{ shipping_payment['amount_aps'] }}" /></td>
+                    <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[{{ shipping_payment_row }}][priority]" value="{{ shipping_payment['priority'] }}" /></td>
+                    <td class="left"><a onclick="$('#econt_shipping_payment_{{ shipping_payment_row }}').remove();" class="btn btn-primary"><span>{{ button_remove }}</span></a></td>
+                  </tr>
+                  {% set shipping_payment_row = shipping_payment_row + 1 %}
+                  {% endfor %}
+                </tbody>
+                </table>
+                {% if error_shipping_payment %}
+                <p class="text-danger">{{ error_shipping_payment }}</p>
+                {% endif %}
+                <a href="javascript:void(0)" onclick="clear_shipping_payments();" class="btn btn-warning">{{ button_clear_conditions }}</a><br />
+                <b>{{ text_condition_clear_info }}</b>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_additional_settings }}</b></h4>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_oc">{{ entry_oc }}</label></label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_oc" name="shipping_econt_oc">
+                {% if shipping_econt_oc %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <span id="total_for_oc" {% if not shipping_econt_oc %} style="display: none;"{% endif %}>
+                <label for="econt_total_for_oc">{{ entry_total_for_oc }}</label>
+                <input class="form-control" type="text" id="econt_total_for_oc" name="shipping_econt_total_for_oc" value="{{ shipping_econt_total_for_oc }}" />
+              </span>
+              <div><a href="https://www.econt.com/services/courier-services#addons" target="_blank">{{ text_learn_more }}</a></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_dc">{{ entry_dc }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_dc" name="shipping_econt_dc">
+                {% if shipping_econt_dc == 2 %}
+                <option value="2" selected="selected">{{ text_yes_return_receipt }}</option>
+                <option value="1">{{ text_yes_receipt }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% elseif shipping_econt_dc == 1 %}
+                <option value="2">{{ text_yes_return_receipt }}</option>
+                <option value="1" selected="selected">{{ text_yes_receipt }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="2">{{ text_yes_return_receipt }}</option>
+                <option value="1">{{ text_yes_receipt }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <div><a href="https://www.econt.com/services/courier-services#addons" target="_blank">{{ text_learn_more }}</a></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{ entry_disposition }}</label>
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="econt_pay_after_accept" name="shipping_econt_pay_after_accept" value="1" {% if shipping_econt_pay_after_accept %} checked="checked"{% endif %} onchange="if (!$(this).is(':checked')) { $('#econt_pay_after_test').prop('checked', false); $('#econt_pay_choose').prop('checked', false); }" />
+                  {{ entry_pay_after_accept }}
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="econt_pay_after_test" name="shipping_econt_pay_after_test" value="1" {% if shipping_econt_pay_after_test %} checked="checked"{% endif %} onchange="if ($(this).is(':checked')) { $('#econt_pay_after_accept').prop('checked', true); }" />
+                  {{ entry_pay_after_test }}
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="econt_pay_choose" name="shipping_econt_pay_choose" value="1" {% if shipping_econt_pay_choose %} checked="checked"{% endif %} onchange="if ($(this).is(':checked')) { $('#econt_pay_after_accept').prop('checked', true); }" />
+                  {{ entry_pay_choose }}
+                </label>
+              </div>
+              <div><a href="http://www.econt.com/15105/" target="_blank">{{ text_learn_more }}</a></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_cd">{{ entry_cd }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_cd" name="shipping_econt_cd">
+                {% for agreement in shipping_econt_cd_options %}
+                  <option value="{{ agreement.code }}"{% if shipping_econt_cd == agreement.code %} selected="selected"{% endif %}>{{ agreement.title }}</option>
+                {% endfor %}
+              </select>
+              {% if error_econt_cd %}
+              <span class="text-danger">{{ error_econt_cd }}</span>
+              {% endif %}
+              <div><a href="http://www.econt.com/%D0%BD%D0%B0%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD_%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6/" target="_blank">{{ text_learn_more }}</a></div>
+            </div>
+          </div> <!-- да оправя -->
+          <div class="form-group">
+            <div class="col-sm-3 text-right">
+              <h4><b>{{ entry_additional_settings }}</b></h4>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_request_courier">{{ entry_request_courier }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_request_courier" name="shipping_econt_request_courier">
+                {% if shipping_econt_request_courier %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <span id="request_courier_type" {% if not shipping_econt_request_courier %} style="display: none;"{% endif %}>
+                <label></label>
+                <div class="row">
+                  <div class="col-md-4">
+                    <select class="form-control" id="econt_request_courier_type" name="shipping_econt_request_courier_type">
+                      {% if shipping_econt_request_courier_type == 'IN' %}
+                      <option value="">{{ text_request_courier_choose }}</option>
+                      <option value="IN" selected="selected">{{ text_request_courier_in }}</option>
+                      <option value="BETWEEN">{{ text_request_courier_between }}</option>
+                      {% elseif shipping_econt_request_courier_type == 'BETWEEN' %}
+                      <option value="">{{ text_request_courier_choose }}</option>
+                      <option value="IN">{{ text_request_courier_in }}</option>
+                      <option value="BETWEEN" selected="selected">{{ text_request_courier_between }}</option>
+                      {% else %}
+                      <option value="">{{ text_request_courier_choose }}</option>
+                      <option value="IN">{{ text_request_courier_in }}</option>
+                      <option value="BETWEEN">{{ text_request_courier_between }}</option>
+                      {% endif %}
+                    </select>
+                    <span class="text-danger">{{ error_request_courier_type }}</span>
+                  </div>
+                  <div class="col-sm-4" id="econt_request_courier_time_from" {% if shipping_econt_request_courier_type != 'IN' and shipping_econt_request_courier_type != 'BETWEEN' %} style="display: none;"{% endif %}>
+                    <select class="form-control" name="shipping_econt_request_courier_time_from">
+                      {% for hour in hours_between1 %}
+                        <option value="{{ hour }}"{% if shipping_econt_request_courier_time_from == hour %} selected="selected"{% endif %}>{{ hour }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-sm-4" id="econt_request_courier_time_to" {% if shipping_econt_request_courier_type != 'BETWEEN' %} style="display: none;"{% endif %}>
+                    <select class="form-control" name="shipping_econt_request_courier_time_to">
+                      {% for hour in hours_between2 %}
+                        <option value="{{ hour }}"{% if shipping_econt_request_courier_time_to == hour %} selected="selected"{% endif %}>{{ hour }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_saturday">{{ entry_saturday }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_saturday" name="shipping_econt_saturday">
+                {% if shipping_econt_saturday %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_restday">{{ entry_restday }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_restday" name="shipping_econt_restday">
+                {% if shipping_econt_restday %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_format_print">{{ entry_format_print }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_format_print" name="shipping_econt_format_print">
+                <option value="A4"{% if shipping_econt_format_print == 'A4' %} selected="selected"{% endif %}>A4</option>
+                <option value="100x150"{% if shipping_econt_format_print == '100x150' %} selected="selected"{% endif %}>{{ text_format_print_100x150 }}</option>
+                <option value="90x100"{% if shipping_econt_format_print == '90x100' %} selected="selected"{% endif %}>{{ text_format_print_90x100 }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_package">{{ entry_package }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_package" name="shipping_econt_package">
+                {% if shipping_econt_package %}
+                <option value="1" selected="selected">{{ text_yes }}</option>
+                <option value="0">{{ text_no }}</option>
+                {% else %}
+                <option value="1">{{ text_yes }}</option>
+                <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+              <div>{{ text_package_info }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_currency">{{ entry_currency }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_currency" name="shipping_econt_currency">
+                {% for currency in currencies %}
+                {% if currency['code'] == shipping_econt_currency %}
+                <option value="{{ currency['code'] }}" selected="selected">{{ currency['title'] }}</option>
+                {% else %}
+                <option value="{{ currency['code'] }}">{{ currency['title'] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_weight_class_id">{{ entry_weight_class }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_weight_class_id" name="shipping_econt_weight_class_id">
+                {% for weight_class in weight_classes %}
+                  {% if weight_class['weight_class_id'] == shipping_econt_weight_class_id %}
+                  <option value="{{ weight_class['weight_class_id'] }}" selected="selected">{{ weight_class['title'] }}</option>
+                  {% else %}
+                  <option value="{{ weight_class['weight_class_id'] }}">{{ weight_class['title'] }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_order_status_id">{{ entry_order_status }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_order_status_id" name="shipping_econt_order_status_id">
+              {% for order_status in order_statuses %}
+                {% if order_status['order_status_id'] == shipping_econt_order_status_id %}
+                <option value="{{ order_status['order_status_id'] }}" selected="selected">{{ order_status['name'] }}</option>
+                {% else %}
+                <option value="{{ order_status['order_status_id'] }}">{{ order_status['name'] }}</option>
+                {% endif %}
+              {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_geo_zone_id">{{ entry_geo_zone }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="econt_geo_zone_id" name="shipping_econt_geo_zone_id">
+                <option value="0">{{ text_all_zones }}</option>
+                {% for geo_zone in geo_zones %}
+                {% if geo_zone['geo_zone_id'] == shipping_econt_geo_zone_id %}
+                <option value="{{ geo_zone['geo_zone_id'] }}" selected="selected">{{ geo_zone['name'] }}</option>
+                {% else %}
+                <option value="{{ geo_zone['geo_zone_id'] }}">{{ geo_zone['name'] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="econt_sort_order">{{ entry_sort_order }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="econt_sort_order" name="shipping_econt_sort_order" value="{{ shipping_econt_sort_order }}" size="1" />
+            </div>
+          </div>
+          {% else %}
+          <div class="form-group">
+            <div class="col-sm-12">
+              <b>{{ text_sync_info_warning }}</b>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+          <div class="pull-right">
+            {% if shipping_econt_logged and cities %}
+            <button type="submit" form="form-econt" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+            {% endif %}
+            <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+	function receiveMessage(event) {
+		if (event.origin !== '{{ office_locator_domain }}')
+			return;
+
+		message_array = event.data.split('||');
+		getOfficeByOfficeCode(message_array[0]);
+		$.magnificPopup.close();
+	}
+
+	if (window.addEventListener) {
+		window.addEventListener('message', receiveMessage, false);
+	} else if (window.attachEvent) {
+		window.attachEvent('onmessage', receiveMessage);
+	}
+
+	$(document).ready(function() {
+    $('#modal-responsibility').modal('show');
+
+    $('#econt_request_courier').change(function() {
+      if ($(this).val() === '1') {
+        $('#request_courier_type').show();
+      } else {
+        $('#request_courier_type').hide();
+      }
+    });
+
+    $('#econt_request_courier_type').change(function() {
+      if ($(this).val() === 'IN') {
+        $('#econt_request_courier_time_from').show();
+        $('#econt_request_courier_time_to').hide();
+      } else if ($(this).val() === 'BETWEEN') {
+        $('#econt_request_courier_time_from, #econt_request_courier_time_to').show();
+      } else {
+        $('#econt_request_courier_time_from, #econt_request_courier_time_to').hide();
+      }
+    });
+
+		$('#econt_client_id').change(function() {
+			if ($(this).val() !== '') {
+				$.ajax({
+					url: 'index.php?route=extension/shipping/econt/getClientInfo&user_token={{ user_token }}',
+					type: 'POST',
+					data: 'client_id=' + parseInt($(this).val()),
+					dataType: 'json',
+					success: function(data) {
+						$('#econt_key_word').val(data.keyword);
+
+						$('#econt_cd option').not('option[value=""],option[value="0"],option[value="1"]').remove();
+						for (agreement in data.agreements) {
+							$('<option value="cd' + data.agreements[agreement] + '">{{ text_yes_agreement }} ' + data.agreements[agreement] + '</option>').appendTo('#econt_cd');
+						}
+
+            var types = ['take', 'give', 'return'];
+            for (type in types) {
+              $('#econt_instructions_id_' + types[type] + ' option').not('option[value=""]').remove();
+              for (instruction in data.instructions[types[type]]) {
+                $('<option value="' + data.instructions[types[type]][instruction] + '">' + data.instructions[types[type]][instruction] + '</option>').appendTo('#econt_instructions_id_' + types[type]);
+              }
+            }
+
+					}
+				});
+			}
+		});
+
+		if ($('#econt_office_city_id').val()) {
+			url = '{{ office_locator }}&address=' + $('#econt_office_city_id option:selected').text();
+		} else {
+			url = '{{ office_locator }}';
+		}
+
+		$('a#office_locator_button').magnificPopup({
+			type: 'iframe',
+			  iframe: {
+				patterns: {
+				  bgmaps: {
+					index: 'javascript:void(0);',
+					src: url
+				  }
+				}
+			  }
+		 });
+
+		$('#econt_office_city_id').change(function () {
+			if ($('#econt_office_city_id').val()) {
+				url = '{{ office_locator }}&address=' + $('#econt_office_city_id option:selected').text();
+			} else {
+				url = '{{ office_locator }}';
+			}
+
+			$('a#office_locator_button').magnificPopup({
+				type: 'iframe',
+				  iframe: {
+					patterns: {
+					  bgmaps: {
+						index: 'javascript:void(0);',
+						src: url
+					  }
+					}
+				  }
+			 });
+		});
+
+		$('#econt_shipping_from').on('change', function() {
+			if ($(this).val() == 'DOOR') {
+				$('#office_city_id,#office_id,#office_code,#office_locator,#aps_info').hide();
+				$('#econt_oc,#econt_sms,#econt_invoice_before_cd,#econt_delivery_day,#econt_partial_delivery,#econt_inventory,#econt_return_loading,#econt_instruction').parent().parent().show();
+			} else if ($(this).val() == 'OFFICE') {
+				$('#office_city_id,#office_id,#office_code,#office_locator').show();
+				$('#econt_oc,#econt_sms,#econt_invoice_before_cd,#econt_delivery_day,#econt_partial_delivery,#econt_inventory,#econt_return_loading,#econt_instruction').parent().parent().show();
+			}
+		});
+	});
+
+	function getOfficeByOfficeCode(office_code) {
+		if (parseInt(office_code)) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getOfficeByOfficeCode&user_token={{ user_token }}',
+				type: 'POST',
+				data: 'office_code=' + parseInt(office_code),
+				dataType: 'json',
+				success: function(data) {
+					if (!data.error) {
+						$('#econt_office_city_id').val(data.city_id);
+						html = '<option value="0">{{ text_select }}</option>';
+						var is_machine = false;
+						for (i = 0; i < data.offices.length; i++) {
+							html += '<option ';
+							if (data.offices[i]['office_id'] == data.office_id) {
+								if (data.offices[i]['is_machine'] === '1') {
+									is_machine = true;
+								}
+								html += 'selected="selected"';
+							}
+							html += 'value="' + data.offices[i]['office_id'] + '">' + data.offices[i]['office_code'] + ', ' + data.offices[i]['name'] + ', ' + data.offices[i]['address'] +  '</option>';
+						}
+						if (is_machine) {
+							$('#aps_info').show();
+						} else {
+							$('#aps_info').hide();
+						}
+						$('#econt_office_id').html(html);
+						$('#econt_office_code').val(office_code);
+					}
+				}
+			});
+		}
+	}
+//--></script>
+<script type="text/javascript"><!--
+var addresses;
+var step = 0;
+var zone = 1;
+
+function refreshData() {
+  $('#data_error').html('').removeClass("text-danger");
+  $('#get_data').attr('disabled', true);
+	$('#get_data').after('<span id="loading" class="attention" style="padding: 5px;">{{ text_get_data }}</span>');
+	$('#econt_office_city_id').html('<option value="0">{{ text_wait }}</option>');
+	$('#econt_office_id').html('<option value="0">{{ text_wait }}</option>');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/refreshData&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'step=' + step + '&zone=' + zone,
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				if (data.step) {
+					step = data.step;
+					zone = data.zone;
+					refreshData();
+				} else if (data.success) {
+					window.location = window.location;
+				} else if (data.error) {
+					$('#data_error').html(data.message).addClass('text-danger');
+				}
+			}
+		},
+		error: function(request) {
+			$('#data_error').html('{{ error_general }}').addClass("text-danger");
+		},
+		complete: function() {
+			$('#loading').remove();
+
+			var step = 0;
+			var zone = 1;
+		}
+	});
+}
+
+function econtButtonLogin() {
+  $('#loading').remove();
+  $('#login_error').html('').removeClass("text-danger");
+	$('#login_button').after('<span id="loading" class="attention" style="padding: 5px;">Моля, изчакайте.</span>');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/login&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'username=' + encodeURIComponent($('#econt_username').val()) + '&password=' + encodeURIComponent($('#econt_password').val()) + '&test=' + encodeURIComponent($('#econt_test').val()),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				$('#loading').remove();
+
+				if (data.success) {
+					window.location = window.location;
+				} else {
+					$('#login_error').html(data.message).addClass('text-danger');
+				}
+			}
+		},
+		error: function(request) {
+			$('#loading').remove();
+
+			$('#login_error').html('{{ error_general }}').addClass("text-danger");
+		}
+	});
+}
+
+function clear_shipping_payments() {
+  $('#econt_shipping_payments tr').remove();
+}
+
+function econtButtonLogout() {
+  if (confirm('{{ text_warning_logout }}')) {
+    $.get('index.php?route=extension/shipping/econt/logout&user_token={{ user_token }}').done(function() {
+      window.location = window.location;
+    });
+  }
+}
+
+function getProfile() {
+	$('#address_error').html('').removeClass("text-danger");
+	$('#econt_address_id').html('<option value="*">{{ text_wait }}</option>');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getProfile&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'username=' + encodeURIComponent($('#econt_username').val()) + '&password=' + encodeURIComponent($('#econt_password').val()) + '&test=' + encodeURIComponent($('#econt_test').val()),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				if (data.client_info && data.client_info.name) {
+					$('#econt_name_person').val(data.client_info.name);
+				} else if (data.client_info && data.client_info.mol) {
+					$('#econt_name_person').val(data.client_info.mol);
+				}
+
+				if (data.client_info && data.client_info.business_phone) {
+					$('#econt_phone').val(data.client_info.business_phone);
+				}
+
+				if (data.addresses) {
+					addresses = data.addresses;
+					html = '<option value="*">{{ text_select }}</option>';
+
+					for (i = 0; i < data.addresses.length; i++) {
+						html += '<option value="' + i + '">';
+
+						html += data.addresses[i]['city_post_code'] + ', ' + data.addresses[i]['city'];
+
+						if (data.addresses[i]['quarter'] && data.addresses[i]['quarter'].length) {
+							html += ', ' + data.addresses[i]['quarter'];
+						}
+
+						if (data.addresses[i]['street'] && data.addresses[i]['street'].length) {
+							html += ', ' + data.addresses[i]['street'];
+
+							if (data.addresses[i]['street_num'] && data.addresses[i]['street_num'].length) {
+								html += ' ' + data.addresses[i]['street_num'];
+							}
+						}
+
+						if (data.addresses[i]['other'] && data.addresses[i]['other'].length) {
+							html += ', ' + data.addresses[i]['other'];
+						}
+
+						html += '</option>';
+					}
+
+					$('#econt_address_id').html(html);
+				} else if (data.error) {
+					$('#address_error').html(data.error).addClass("text-danger");
+				}
+			}
+		}
+	});
+}
+
+function getOfficesByCityId(aps) {
+	if (!aps) {
+		$('#econt_office_id').html('<option value="0">{{ text_wait }}</option>');
+		$('#econt_office_code').val('');
+		econt_office_city_id = $('#econt_office_city_id').val();
+	} else {
+		$('#econt_office_aps_id').html('<option value="0">{{ text_wait }}</option>');
+		$('#econt_office_aps_code').val('');
+		econt_office_city_id = $('#econt_office_city_aps_id').val();
+	}
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getOfficesByCityId&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'city_id=' + encodeURIComponent(econt_office_city_id),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				html = '<option value="0">{{ text_select }}</option>';
+
+				for (i = 0; i < data.length; i++) {
+					html += '<option value="' + data[i]['office_id'] + '">' + data[i]['office_code'] + ', ' + data[i]['name'] + ', ' + data[i]['address'] +  '</option>';
+				}
+
+				if (!aps) {
+					$('#econt_office_id').html(html);
+				} else {
+					$('#econt_office_aps_id').html(html);
+				}
+			}
+		}
+	});
+}
+
+function getOffice(aps) {
+	if (!aps) {
+		$('#econt_office_code').val('');
+		econt_office_id = $('#econt_office_id').val();
+	} else {
+		$('#econt_office_aps_code').val('');
+		econt_office_id = $('#econt_office_aps_id').val();
+	}
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getOffice&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'office_id=' + encodeURIComponent(econt_office_id),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				if (data.is_machine === '1') {
+					$('#aps_info').show();
+				} else {
+					$('#aps_info').hide();
+				}
+				if (!aps) {
+					$('#econt_office_code').val(data.office_code);
+				} else {
+					$('#econt_office_aps_code').val(data.office_code);
+				}
+			}
+		}
+	});
+}
+
+function getKeyWords() {
+	$('#key_word_error').html('').removeClass("text-danger");
+	$('#econt_key_word_id').html('<option value="0">{{ text_wait }}</option>');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getClients&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'username=' + encodeURIComponent($('#econt_username').val()) + '&password=' + encodeURIComponent($('#econt_password').val()) + '&test=' + encodeURIComponent($('#econt_test').val()),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				if (data.key_words) {
+					html = '<option value="0">{{ text_select }}</option>';
+
+					for (i = 0; i < data.key_words.length; i++) {
+						if (data.key_words[i] && data.key_words[i].length) {
+							html += '<option value="' + data.key_words[i] + '">' + data.key_words[i] + '</option>';
+						}
+					}
+
+					$('#econt_key_word_id').html(html);
+					$('#econt_key_word_id').val($('#econt_key_word').val()).attr('selected', 'selected');
+				} else if (data.error) {
+					$('#key_word_error').html(data.error).addClass("text-danger");
+				}
+			}
+		}
+	});
+}
+
+function fillKeyWord() {
+	if ($('#econt_key_word_id').val() != 0) {
+		$('#econt_key_word').val($('#econt_key_word_id').val());
+	} else {
+		$('#econt_key_word').val('');
+	}
+}
+
+function getCDAgreementNums() {
+	$('#cd_agreement_num_error').html('').removeClass("text-danger");;
+	$('#econt_cd_agreement_num_id').html('<option value="0">{{ text_wait }}</option>');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getClients&user_token={{ user_token }}',
+		type: 'POST',
+		data: 'username=' + encodeURIComponent($('#econt_username').val()) + '&password=' + encodeURIComponent($('#econt_password').val()) + '&test=' + encodeURIComponent($('#econt_test').val()),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				if (data.cd_agreement_nums) {
+					html = '<option value="0">{{ text_select }}</option>';
+
+					for (i = 0; i < data.cd_agreement_nums.length; i++) {
+						if (data.cd_agreement_nums[i] && data.cd_agreement_nums[i].length) {
+							html += '<option value="' + data.cd_agreement_nums[i] + '">' + data.cd_agreement_nums[i] + '</option>';
+						}
+					}
+
+					$('#econt_cd_agreement_num_id').html(html);
+					$('#econt_cd_agreement_num_id').val($('#econt_cd_agreement_num').val()).attr('selected', 'selected');
+				} else if (data.error) {
+					$('#cd_agreement_num_error').html(data.error).addClass("text-danger");
+				}
+			}
+		}
+	});
+}
+
+function fillCDAgreementNum() {
+	if ($('#econt_cd_agreement_num_id').val() != 0) {
+		$('#econt_cd_agreement_num').val($('#econt_cd_agreement_num_id').val());
+	} else {
+		$('#econt_cd_agreement_num').val('');
+	}
+}
+
+function getInstructionsForm() {
+	window.open('{{ instructionsFormUrl }}', '', 'width=1050,height=800,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no');
+}
+
+var shipping_payment_row = {% if shipping_payment_row %}{{ shipping_payment_row }}{% else %}0{% endif %};
+
+function addShippingPayment() {
+	html  = '<tr id="econt_shipping_payment_' + shipping_payment_row + '">';
+	html += '  <td class="left"><select name="shipping_econt_shipping_payments[' + shipping_payment_row + '][condition]"><option value="cart">{{ text_total_items_cart }}</option><option value="weight">{{ text_total_weight_cart }}</option><option value="total_amount">{{ text_total_amount_cart }}</option></select></td>';
+	html += '  <td class="left"><select name="shipping_econt_shipping_payments[' + shipping_payment_row + '][criteria]"><option value="lt">{{ text_is_less }}</option><option value="gt">{{ text_is_more }}</option></select></td>';
+	html += '  <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[' + shipping_payment_row + '][criteria_value]" value="" /></td>';
+	html += '  <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[' + shipping_payment_row + '][amount_door]" value="" /></td>';
+	html += '  <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[' + shipping_payment_row + '][amount_office]" value="" /></td>';
+	html += '  <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[' + shipping_payment_row + '][amount_aps]" value="" /></td>';
+	html += '  <td class="left"><input class="form-control" type="text" name="shipping_econt_shipping_payments[' + shipping_payment_row + '][priority]" value="" /></td>';
+	html += '  <td class="left"><a onclick="$(\'#econt_shipping_payment_' + shipping_payment_row + '\').remove();" class="btn btn-primary"><span>{{ button_remove }}</span></a></td>';
+	html += '</tr>';
+
+	$('#econt_shipping_payments').append(html);
+
+	shipping_payment_row++;
+}
+
+function checkApsCd() {
+	if ($('#econt_shipping_from').val() == 'APS' && $('#econt_cd').val() == 1) {
+		alert('{{ alert_error_aps_cd }}');
+	}
+}
+
+$('#econt_oc,#econt_sms,#econt_cd_agreement').on('change', function() {
+	if($(this).val() == 1) {
+		$(this).next().show();
+	} else {
+		$(this).next().hide();
+	}
+});
+
+$('#econt_inventory').on('change', function() {
+	if($('#econt_inventory').val() == 1) {
+		$('#inventory_types').show();
+	} else {
+		$('#inventory_types').hide();
+	}
+});
+
+$('#econt_instruction').on('change', function() {
+	if($('#econt_instruction').val() == 1) {
+		$('#get_instructions').show();
+		$('#instructions').show();
+	} else {
+		$('#get_instructions').hide();
+		$('#instructions').hide();
+	}
+});
+//--></script>
+
+<script type="text/javascript"><!--
+function autocompleteAddress(index) {
+	var econt_city = $('#econt_city_' + index).val();
+	var econt_quarter = $('#econt_quarter_' + index).val();
+	var econt_street = $('#econt_street_' + index).val();
+
+	$('#econt_city_' + index).autocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getCitiesByName&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label:     item['name'],
+							value:     item['name'],
+							city_id:   item['city_id'],
+							post_code: item['post_code']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_city = item.label;
+				$('#econt_city_' + index).val(item.label);
+				$('#econt_city_id_' + index).val(item.city_id);
+				$('#econt_post_code_' + index).val(item.post_code);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#econt_city_' + index).val('');
+				$('#econt_city_id_' + index).val('');
+				$('#econt_post_code_' + index).val('');
+			}
+		}
+	});
+
+	$('#econt_city_' + index).blur(function() {
+		if ($(this).val() != econt_city) {
+			$(this).val('');
+			$('#econt_city_id_' + index).val('');
+			$('#econt_post_code_' + index).val('');
+		}
+	});
+
+	$('#econt_quarter_' + index).autocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getQuartersByName&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request) + '&city_id=' +  encodeURIComponent($('#econt_city_id_' + index).val()),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label: item['name'],
+							value: item['name']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_quarter = item.label;
+				$('#econt_quarter_' + index).val(item['label']);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#econt_quarter_' + index).val('');
+			}
+		}
+	});
+
+	$('#econt_quarter_' + index).blur(function() {
+		if ($(this).val() != econt_quarter) {
+			$('#econt_quarter_' + index).val('');
+		}
+	});
+
+	$('#econt_street_' + index).autocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getStreetsByName&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request) + '&city_id=' +  encodeURIComponent($('#econt_city_id_' + index).val()),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label: item['name'],
+							value: item['name']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_street = item.label;
+				$('#econt_street_' + index).val(item['label']);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#econt_street_' + index).val('');
+			}
+		}
+	});
+
+	$('#econt_street_' + index).blur(function() {
+		if ($(this).val() != econt_street) {
+			$('#econt_street_' + index).val('');
+		}
+	});
+}
+//--></script>
+{{ footer }}

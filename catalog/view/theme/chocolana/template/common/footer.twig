@@ -1,0 +1,163 @@
+<div class="footer">
+	<div class="wrap">
+		<div class="footer__wrap">
+			<div class="footer__inst_wrap">
+				<div class="footer__inst_title">Instagram</div>
+
+				<div class="footer__inst">
+					<iframe src="/catalog/view/theme/chocolana/instagram/index.php?width=150&amp;inline=2&amp;view=4&amp;toolbar=false" scrolling="no" frameborder="no"></iframe>
+				</div>
+			</div>
+
+			<div class="footer__contacts">
+				<a class="js-phone" href="javascript:void(0);">{{ telephone }}</a>
+
+				<a href="mailto:info@chocolana.com" target="_blank">info@chocolana.com</a>
+
+				<a class="footer__place" href="javascript:void(0);">{{ text_bulgaria_blagoevgrad }}</a>
+
+				<div class="text-center">
+					<span class="footer__cooperation js-popup_cooperation">{{ text_cooperation }}</span>
+				</div>
+			</div>
+
+			<div class="footer__social_wrap">
+				<div class="footer__social">
+					<a href="viber://chat?number=+359988337310" title="viber"><img src="/image/icons/viber.svg" alt="viber" /></a>
+					<a href="//www.facebook.com/chocolana.bg/" target="_blank" title="facebook"><img src="/image/icons/fb.svg" alt="facebook" /></a>
+					<a href="//www.instagram.com/chocolana_bg/" target="_blank" title="instagram"><img src="/image/icons/inst.svg" alt="instagram" /></a>
+					<a href="https://api.whatsapp.com/send?phone=359988337310" title="whatsapp" target="_blank"><img src="/image/icons/whatsapp.svg" alt="whatsapp" /></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="powered_by">
+	<div class="wrap">
+		<img src="/image/icons/made_by.svg" alt="Made by" /> <a href="//foxartbox.com/" target="_blank">foxartbox.com</a>
+	</div>
+</div>
+
+
+
+<div class="cookies">
+	{{ text_cookies }}
+</div>
+
+
+
+<div class="popup_order__loading">
+	<div class="popup_order__bg"></div>
+
+	<div class="popup_order__img">
+		<img src="/image/icons/loading.svg" alt="please wait..." />
+	</div>
+
+	<div class="popup_order__content">
+		<p>
+			{{ text_thank_you_for_order }}
+		</p>
+
+		<div class="popup_order__close">
+			<div class="btn btn__close">
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="popup_error">
+	<div class="popup_error__bg"></div>
+
+	<div class="popup_error__content">
+		<p>
+			{{ text_order_error }}
+		</p>
+
+		<div class="popup_error__close">
+			<div class="btn btn__close">
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="popup_cooperation">
+	<div class="popup_cooperation__bg js-popup_cooperation"></div>
+
+	<div class="popup_cooperation__content_wrap">
+		<div class="btn btn__close js-popup_cooperation">
+			<span></span>
+			<span></span>
+		</div>
+
+		<div class="popup_cooperation__content">
+			<h2>Заголовок</h2>
+
+			<p>
+				Текст о сотрудничестве
+			</p>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="popup_incognito">
+	<div class="popup_incognito__bg js-popup_incognito__close"></div>
+
+	<div class="popup_incognito__content">
+		<div class="btn btn__close js-popup_incognito__close">
+			<span></span>
+			<span></span>
+		</div>
+
+		<p>
+			{{ text_incognito }}
+		</p>
+	</div>
+</div>
+
+
+
+<div class="screensize">
+	<span class="screensize_x"></span> x <span class="screensize_y"></span>
+</div>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script>
+	(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+		m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+	(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+	ym(53887987, "init", {
+		clickmap:true,
+		trackLinks:true,
+		accurateTrackBounce:true,
+		webvisor:true
+	});
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/53887987" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+{# all scripts in one file with GULP#}
+<script src="/catalog/view/theme/chocolana/all.min.js?v{{ "now"|date("Ymd") }}"></script>
+
+</body>
+
+</html>
+
+

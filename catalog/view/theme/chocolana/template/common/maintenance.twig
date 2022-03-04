@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+
+<html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+
+
+
+<head>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, user-scalable=yes, maximum-scale=5" name="viewport" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>{{ title }}</title>
+
+	<base href="{{ base }}" />
+
+
+
+	{% if description %}
+		<meta name="description" content="{{ description }}" />
+	{% endif %}
+
+	{% if keywords %}
+		<meta name="keywords" content="{{ keywords }}" />
+	{% endif %}
+
+
+
+	<link rel="icon" href="/image/favicon.ico" type="image/x-icon" />
+
+	<link rel="icon" type="image/png" href="/image/favicon/16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="/image/favicon/32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/image/favicon/96.png" sizes="96x96" />
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/image/favicon/57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="/image/favicon/60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="/image/favicon/72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="/image/favicon/76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="/image/favicon/114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="/image/favicon/120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="/image/favicon/144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="/image/favicon/152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/image/favicon/180.png" />
+
+
+
+	{# all scripts in one file with GULP#}
+	<script src="/catalog/view/theme/chocolana/all.min.js?v{{ "now"|date("YmdHm") }}"></script>
+
+
+
+	<link href="/catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+	<script src="/catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
+
+	<link href="/catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" />
+
+	<link href="/catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">
+
+
+
+	{% for style in styles %}
+		<link href="{{ style.href }}" rel="{{ style.rel }}" media="{{ style.media }}" />
+	{% endfor %}
+
+	{% for script in scripts %}
+		<script src="{{ script }}"></script>
+	{% endfor %}
+
+
+
+	{#<script src="/catalog/view/javascript/common.js"></script>#}
+
+	{% for link in links %}
+		<link href="{{ link.href }}" rel="{{ link.rel }}" />
+	{% endfor %}
+
+	{% for analytic in analytics %}
+		{{ analytic }}
+	{% endfor %}
+
+
+
+	{# all styles in one file with GULP #}
+	<link href="/catalog/view/theme/chocolana/styles.min.css?v{{ "now"|date("YmdHm") }}" rel="stylesheet" />
+</head>
+
+
+
+<body>
+
+
+
+<div class="offline">
+	<div class="offline__wrap">
+		<div class="offline__wrap2">
+			<jdoc:include type="message" />
+
+			<h1>Coming soon...</h1>
+
+			<div class="offline__bg"><img src="/image/offline.jpg" alt="" /></div>
+
+			<form class="feedback" action="/catalog/veiw/theme/chocolona/sendmail2.php" method="post">
+				<h2>Связаться с нами</h2>
+
+				<label>
+					<span>Ваше имя</span>
+					<input type="text" name="feedback__name" />
+				</label>
+
+				<label>
+					<span>e-mail</span>
+					<input type="text" name="feedback__email" />
+				</label>
+
+				<label>
+					<span>Сообщение</span>
+					<textarea name="feedback__message"></textarea>
+				</label>
+
+				<label class="feedback__submit">
+					<span>Отправить</span>
+					<input type="submit" />
+				</label>
+			</form>
+
+			{#<div class="offline__email">#}
+				{#<a href="mailto:info@chocolana.com">info@chocolana.com</a>#}
+			{#</div>#}
+
+			{#<div class="offline__copy">© 2019</div>#}
+		</div>
+	</div>
+</div>
+
+<div class="feedback__msg feedback__msg_success">
+	<span>
+		<span>
+			Сообщение отправлено!<span class="feedback__close"><span></span><span></span></span>
+		</span>
+	</span>
+</div>
+
+<div class="feedback__msg feedback__msg_incomplete">
+	<span>
+		<span>
+			Заполните все поля.<span class="feedback__close"><span></span><span></span></span>
+		</span>
+	</span>
+</div>
+
+<div class="feedback__msg feedback__msg_fail">
+	<span>
+		<span>
+			Ошибка при отправке сообщения.<span class="feedback__close"><span></span><span></span></span>
+		</span>
+	</span>
+</div>
+
+<div class="feedback__msg feedback__msg_sending">
+	<span>
+		<span>
+			Сообщение отправляется...<span class="feedback__close"><span></span><span></span></span>
+		</span>
+	</span>
+</div>
+
+
+
+
+
+{{ footer }}
+
+

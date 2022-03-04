@@ -1,0 +1,358 @@
+@charset "utf-8";
+
+
+
+// Standart class [START]
+* {
+	border: 0 none;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	&:after,
+	&:before {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+a {
+	transition: all .3s ease-in-out;
+
+	&.link_to_block {
+		left: 0;
+		position: absolute;
+		top: 0;
+	}
+}
+
+body {
+	font-size: 14px;
+	margin: 0 auto;
+	min-height: 100%;
+	overflow-x: hidden;
+	padding: 0;
+	position: relative;
+}
+
+br {
+	clear: both;
+}
+
+fieldset {
+	border: 0 none;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 2.2em;
+	line-height: 1.2;
+	margin: 0 0 1em;
+	padding: 0;
+	text-align: center;
+	text-indent: 0;
+	text-transform: none;
+}
+
+h2 {
+	font-size: 1.4em;
+	line-height: 1.4em;
+	margin: 0 0 0.6em;
+	padding: 0;
+	text-align: left;
+	text-indent: 0;
+	text-transform: uppercase;
+
+	a,
+	a:visited {
+		text-decoration: none;
+	}
+}
+
+h4 {
+	color: #000;
+	font-size: 40px;
+	font-weight: normal;
+	line-height: 100%;
+	margin: 0 0 5%;
+	text-align: center;
+}
+
+hr {
+	height: 2px;
+	display: block;
+	margin: 3% 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+html {
+	font-size: 14px;
+	margin: 0 auto;
+	min-height: 100%;
+	overflow-x: hidden;
+	padding: 0;
+	position: relative;
+}
+
+iframe {
+	border: 0 none;
+	display: block;
+	height: 100%;
+	margin: 20px auto;
+	width: 70%;
+}
+
+img {
+	border: 0 none;
+	margin: 0;
+	max-width: 100%;
+}
+
+input {
+	border: 0 none;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: 100;
+	padding: 0.5em 1em;
+}
+
+p {
+	margin: 0.6em 0;
+	padding: 0;
+	text-indent: 0;
+}
+
+pre {
+	display: block;
+	overflow: scroll;
+}
+
+table {
+	border: 0 none;
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+}
+
+textarea {
+	border: 0 none;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: 100;
+	padding: 0.5em 1em;
+	resize: none;
+}
+
+td {
+	padding: 5px;
+	vertical-align: top;
+}
+
+ul {
+	list-style: none;
+
+	li {
+		list-style: none;
+	}
+}
+// Standart class [END]
+
+
+
+// help classes [START]
+.absolute {
+	position: absolute;
+}
+
+
+
+.bold {
+	font-weight: 700;
+}
+
+
+
+.clear {
+	clear: both;
+}
+
+.clr {
+	@extend .clear;
+}
+
+
+
+.fl,
+.floatleft {
+	float: left;
+}
+
+.fr,
+.floatright {
+	float: right;
+}
+
+
+
+// font-sizes [START]
+.fs0 {
+	font-size: 0;
+}
+.fs10 {
+	font-size: 10px;
+}
+.fs11 {
+	font-size: 11px;
+}
+.fs12 {
+	font-size: 12px;
+}
+.fs13 {
+	font-size: 13px;
+}
+.fs14 {
+	font-size: 14px;
+}
+.fs15 {
+	font-size: 15px;
+}
+.fs16 {
+	font-size: 16px;
+}
+.fs17 {
+	font-size: 17px;
+}
+.fs18 {
+	font-size: 18px;
+}
+.fs19 {
+	font-size: 19px;
+}
+.fs20 {
+	font-size: 20px;
+}
+.fs21 {
+	font-size: 21px;
+}
+.fs22 {
+	font-size: 22px;
+}
+.fs23 {
+	font-size: 23px;
+}
+.fs24 {
+	font-size: 24px;
+}
+.fs25 {
+	font-size: 25px;
+}
+.fs26 {
+	font-size: 26px;
+}
+.fs27 {
+	font-size: 27px;
+}
+.fs28 {
+	font-size: 28px;
+}
+.fs29 {
+	font-size: 29px;
+}
+.fs30 {
+	font-size: 30px;
+}
+// font-sizes [END]
+
+
+
+.h100 {
+	height: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+.no-js {
+	.fa {
+		display: none;
+	}
+}
+
+.nobr {
+	white-space: nowrap;
+}
+
+.overflow_hidden {
+	overflow: hidden;
+}
+
+.preload {
+	* {
+		transition: none !important;
+	}
+}
+
+.relative {
+	position: relative;
+}
+
+.table {
+	display: table;
+	width: 100%;
+}
+
+.td {
+	display: table-cell;
+}
+
+.text-center {
+	text-align: center;
+	text-indent: 0;
+}
+
+.text-left {
+	text-align: left;
+	text-indent: 0;
+}
+
+.text-right {
+	text-align: right;
+	text-indent: 0;
+}
+
+.tr {
+	display: table-row;
+}
+
+.v_bottom,
+.vertical_bottom {
+	vertical-align: bottom;
+}
+
+.v_middle,
+.vertical_middle {
+	vertical-align: middle;
+}
+
+.v_top,
+.vertical_top {
+	vertical-align: top;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.w50 {
+	width: 50%;
+}
+
+.w100 {
+	width: 100%;
+}
+
+// help classes [END]

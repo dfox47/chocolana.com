@@ -1,0 +1,183 @@
+@charset "utf-8";
+// sCSS Document
+
+
+
+.cart__checkout {
+	margin: 50px 0;
+}
+
+
+
+.cart__content {}
+
+
+
+.cart__empty {
+	font-size: 20px;
+	padding: 0 0 100px;
+	text-align: center;
+}
+
+
+
+// cart__layout [START]
+.cart__layout {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	//width: 300px;
+}
+
+.cart__layout__box__5_5 {
+	width: 100px;
+
+	.cart__option_item {
+		width: 18%;
+	}
+}
+
+.cart__layout__box__7_2 {
+	width: 140px;
+
+	.cart__option_item {
+		width: 13%;
+	}
+}
+// cart__layout [END]
+
+
+
+.cart__option {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 8px 0;
+	width: 200px;
+}
+
+.cart__option_item {
+	align-items: center;
+	background-color: $c_sweet__bg_default;
+	border-radius: 2px;
+	color: #fff;
+	display: flex;
+	font-size: 14px;
+	font-weight: 700;
+	justify-content: center;
+	margin: 0 0 2%;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	width: 23%;
+
+	&:after {
+		content: "";
+		display: block;
+		padding: 100% 0 0;
+		width: 100%;
+	}
+
+	img {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		text-align: center;
+		text-transform: uppercase;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
+
+	span {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 100%;
+	}
+}
+
+
+
+.cart__product_name {
+	text-transform: uppercase;
+}
+
+
+
+.cart__quantity {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	min-width: 30px;
+}
+
+.cart__quantity__btn {
+	background-color: $c_border;
+	display: inline-block;
+	color: #fff;
+	cursor: pointer;
+	font-size: 20px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	transition: $transition;
+	width: 30px;
+
+	&:hover {
+		background-color: $c_hover;
+	}
+}
+
+.cart__quantity__wrap {
+	width: 98px;
+}
+
+.cart__quantity__wrap2 {
+	border: 1px solid $c_border;
+	display: flex;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+	.cart__layout__box__5_5 {
+		margin: 0 auto;
+		width: 70%;
+	}
+
+	.cart__layout__box__7_2 {
+		width: 100%;
+	}
+
+
+
+	.cart__option_item {
+		font-size: 34px;
+	}
+
+
+
+	.cart__product_name {
+		display: block;
+		text-align: center;
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.cart__option_item {
+		font-size: 23px;
+	}
+}
+
+

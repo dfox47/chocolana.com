@@ -1,0 +1,42 @@
+@charset "utf-8";
+// sCSS Document
+// Powered by foxartbox | info@foxartbox.com
+
+
+
+.popup_incognito {
+	align-items: center;
+	display: none;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9;
+}
+
+.popup_incognito__bg {
+	background-color: #000;
+	height: 100%;
+	left: 0;
+	opacity: .7;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.popup_incognito__content {
+	background-color: #fff;
+	font-size: 20px;
+	padding: 60px;
+	position: relative;
+	z-index: 3;
+
+	.btn {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+	}
+}

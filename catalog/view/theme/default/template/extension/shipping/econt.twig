@@ -1,0 +1,653 @@
+<form action="{{ action }}" method="post" enctype="multipart/form-data" id="econt_form" class="form-horizontal">
+  <div class="content">
+    <div>
+      <div class="form-group" {% if not cd %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label">{{ entry_cd }}</label>
+        <div class="col-sm-10">
+          <label class="radio-inline">
+            <input type="radio" id="cd_yes" name="cd_payment" value="1" {% if cd_payment %} checked="checked"{% endif %} />
+            {{ text_yes }}
+          </label>
+          <label class="radio-inline">
+            <input type="radio" id="cd_no" name="cd_payment" value="0" {% if not cd_payment %} checked="checked"{% endif %} />
+            {{ text_no }}
+          </label>
+        </div>
+      </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label">{{ entry_country }}</label>
+        <div class="col-sm-10">
+          <select id="econt_country_id" name="econt_country_id" onchange="getCitiesByCountryId(this);" class="form-control">
+            {% for country in countries %}
+            {% if country['country_id'] == econt_country_id %}
+            <option value="{{ country['country_id'] }}" selected="selected">{{ country['nameC'] }}</option>
+            {% else %}
+            <option value="{{ country['country_id'] }}">{{ country['nameC'] }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="display: none;">
+        <label class="col-sm-2 control-label">{{ entry_shipping_to }}</label>
+        <div class="col-sm-10">
+          <input type="radio" id="to_door" name="shipping_to" value="DOOR" {% if shipping_to == 'DOOR' %} checked="checked"{% endif %} onclick="$('#econt_office_city_id,#econt_office_city_aps_id,#econt_office_id,#econt_office_aps_id,#econt_office_code,#econt_office_aps_code,#econt_office_locator,#aps_info,#content_services_aps,#aps_warning').hide(); $('#econt_post_code,#econt_city,#econt_quarter,#econt_street,#econt_street_num,#econt_other,#econt_restday,#services_door,#content_services').show();" />
+          <label for="to_door">{{ text_to_door }}</label>
+          <input type="radio" id="to_office" name="shipping_to" value="OFFICE" {% if shipping_to == 'OFFICE' %} checked="checked"{% endif %} onclick="$('#econt_office_city_id,#econt_office_id,#econt_office_code,#econt_office_locator,#content_services').show();$('#econt_post_code,#econt_city,#econt_quarter,#econt_street,#econt_street_num,#econt_other,#econt_restday,#services_door,#econt_office_city_aps_id,#econt_office_aps_id,#econt_office_aps_code,#aps_info,#content_services_aps').hide();" />
+          <label for="to_office">{{ text_to_office }}</label>
+        </div>
+      </div>
+      <div class="form-group" id="econt_post_code" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="post_code">{{ entry_post_code }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="post_code" name="postcode" value="{{ postcode }}" size="3" disabled="disabled" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_city" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="city">{{ entry_city }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="city" name="city" value="{{ city }}" placeholder="{{ text_choose_dropdown }}" class="form-control" />
+          <input type="hidden" id="city_id" name="city_id" value="{{ city_id }}" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_quarter" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="quarter">{{ entry_quarter }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="quarter" name="quarter" value="{{ quarter }}" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_street" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="street">{{ entry_street }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="street" name="street" value="{{ street }}" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_street_num" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="street_num">{{ entry_street_num }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="street_num" name="street_num" value="{{ street_num }}" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_other" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="other">{{ entry_other }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="other" name="other" value="{{ other }}" class="form-control" />
+            {% if error_address %}
+            <span class="text-danger">{{ error_address }}</span>
+            {% endif %}
+        </div>
+      </div>
+      <div class="form-group" id="econt_office_city_id" {% if shipping_to != 'OFFICE' or shipping_to == 'APS' or not to_office %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="office_city_id">{{ entry_city }}</label>
+        <div class="col-sm-10">
+          <select id="office_city_id" name="office_city_id" onchange="getOfficesByCityId(0);" class="form-control">
+            <option value="0">{{ text_select }}</option>
+            {% for city_office in cities %}
+            {% if city_office['city_id'] == office_city_id %}
+            <option value="{{ city_office['city_id'] }}" selected="selected">{{ city_office['name'] }}</option>
+            {% else %}
+            <option value="{{ city_office['city_id'] }}">{{ city_office['name'] }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group" id="econt_office_id" {% if shipping_to != 'OFFICE' or not to_office %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="office_id">{{ entry_office }}</label>
+        <div class="col-sm-10">
+          <select id="office_id" name="office_id" onchange="getOffice(0);" class="form-control">
+            <option value="0">{{ text_select }}</option>
+            {% set is_machine = 0 %}
+            {% for office in offices %}
+            {% if office['office_id'] == office_id %}
+            {% if office['is_machine'] %}{% set is_machine = 1 %}{% endif %}
+            <option value="{{ office['office_id'] }}" selected="selected">{{ office['office_code'] }}, {{ office['name'] }}, {{ office['address'] }}</option>
+            {% else %}
+            <option value="{{ office['office_id'] }}">{{ office['office_code'] }}, {{ office['name'] }}, {{ office['address'] }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+          {% if error_office %}
+          <span class="text-danger">{{ error_office }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="form-group" id="econt_office_code" {% if shipping_to != 'OFFICE' or not to_office %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="office_code">{{ entry_office_code }}</label>
+        <div class="col-sm-10">
+          <input type="text" id="office_code" name="office_code" value="{{ office_code }}" size="3" disabled="disabled" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group" id="econt_office_locator" {% if shipping_to != 'OFFICE' or not to_office %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+          <a href="javascript:void(0);" id="office_locator" class="btn btn-primary" title="{{ button_office_locator }}">{{ button_office_locator }}</a>
+        </div>
+      </div>
+      <div class="content" id="aps_warning" {% if is_machine == 0 and shipping_to == 'OFFICE' %} style="display: none;"{% endif %}>
+        <p><i>{{ text_aps_warning }}</i></p>
+      </div>
+    </div>
+    <div id="services_door" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+      <div class="form-group" id="priority_time">
+        <label class="col-sm-2 control-label">
+          <input type="checkbox" id="priority_time_cb" name="priority_time_cb" value="1" {% if priority_time_cb %} checked="checked"{% endif %} onclick="checkPriorityTime();" />
+          {{ entry_priority_time }}
+        </label>
+        <div class="col-sm-3">
+          <select id="priority_time_type_id" name="priority_time_type_id" {% if not priority_time_cb %} disabled="disabled"{% endif %} class="form-control">
+            {% set priority_time_hours = "" %}
+            {% for priority_time_type in priority_time_types %}
+            {% if priority_time_type['id'] == priority_time_type_id %}
+            {% set priority_time_hours = priority_time_type['hours'] %}
+            <option value="{{ priority_time_type['id'] }}" selected="selected">{{ priority_time_type['name'] }}</option>
+            {% else %}
+            <option value="{{ priority_time_type['id'] }}">{{ priority_time_type['name'] }} </option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <select id="priority_time_hour_id" name="priority_time_hour_id" {% if not priority_time_cb %} disabled="disabled"{% endif %} class="form-control">
+            {% for priority_time_hour in priority_time_hours %}
+            {% if priority_time_hour == priority_time_hour_id %}
+            <option value="{{ priority_time_hour }}" selected="selected">{{ priority_time_hour }} {{ text_hour }}</option>
+            {% else %}
+            <option value="{{ priority_time_hour }}">{{ priority_time_hour }} {{ text_hour }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-sm-3">
+          {% if error_priority_time %}
+          <span class="text-danger">{{ error_priority_time }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if restday_status %}
+    <div>
+      <div class="form-group" id="econt_restday" {% if shipping_to == 'OFFICE' or shipping_to == 'APS' or not to_door %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label" for="restday">{{ entry_saturday }}</label>
+        <div class="col-sm-10">
+          <select id="restday" name="restday" onchange="econtSubmit(false);" class="form-control">
+            <option value="1"{% if restday %} selected="selected"{% endif %}>{{ text_saturday }}</option>
+            <option value="0"{% if not restday %} selected="selected"{% endif %}>{{ text_monday }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="content" id="content_services" {% if shipping_to == 'APS' or to_aps %} style="display: none;"{% endif %}>
+    {% if invoice_before_cd %}
+    <p><i>{{ text_invoice_before_cd }}</i></p>
+    {% endif %}
+    {% if pay_after_accept %}
+    <p><i>{{ text_pay_after_accept }}</i></p>
+    {% endif %}
+    {% if pay_after_test %}
+    <p><i>{{ text_pay_after_test }}</i></p>
+    {% endif %}
+		{% if pay_choose %}
+    <p><i>{{ text_pay_choose }}</i></p>
+    {% endif %}
+    {% if partial_delivery %}
+    <p><b>{{ text_partial_delivery }}</b></p>
+    {% endif %}
+  </div>
+  <div class="content" id="content_services_aps" {% if shipping_to != 'APS' or not to_aps %} style="display: none;"{% endif %}>
+    <p><i>{{ text_services_aps }}</i></p>
+  </div>
+</form>
+
+<script src="catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js" type="text/javascript"></script>
+<script src="catalog/view/javascript/econt/econt.autocomplete.js" type="text/javascript"></script>
+<link href="catalog/view/javascript/jquery/magnific/magnific-popup.css" rel="stylesheet">
+
+<script type="text/javascript"><!--
+	function receiveMessage(event) {
+		if (event.origin !== '{{ office_locator_domain }}')
+			return;
+
+		message_array = event.data.split('||');
+		getOfficeByOfficeCode(message_array[0]);
+		$.magnificPopup.close();
+	}
+
+	if (window.addEventListener) {
+		window.addEventListener('message', receiveMessage, false);
+	} else if (window.attachEvent) {
+		window.attachEvent('onmessage', receiveMessage);
+	}
+
+	$(document).ready(function() {
+		if ($('#office_city_id').val()) {
+			url = '{{ office_locator }}&address=' + $('#office_city_id option:selected').text();
+		} else {
+			url = '{{ office_locator }}';
+		}
+
+		$('#office_locator').magnificPopup({
+			type: 'iframe',
+			  iframe: {
+				patterns: {
+				  bgmaps: {
+					index: 'javascript:void(0);',
+					src: url
+				  }
+				}
+			  }
+		 });
+
+		$('#office_city_id').change(function () {
+			if ($('#office_city_id').val()) {
+				url = '{{ office_locator }}&address=' + $('#office_city_id option:selected').text();
+			} else {
+				url = '{{ office_locator }}';
+			}
+
+			$('#office_locator').magnificPopup({
+				type: 'iframe',
+				  iframe: {
+					patterns: {
+					  bgmaps: {
+						index: 'javascript:void(0);',
+						src: url
+					  }
+					}
+				  }
+			 });
+		});
+	});
+
+	function getOfficeByOfficeCode(office_code) {
+		if (parseInt(office_code)) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getOfficeByOfficeCode',
+				type: 'POST',
+				data: 'office_code=' + parseInt(office_code),
+				dataType: 'json',
+				success: function(data) {
+					if (!data.error) {
+						$('#office_city_id').val(data.city_id);
+						html = '<option value="0">{{ text_select }}</option>';
+
+						for (i = 0; i < data.offices.length; i++) {
+							html += '<option ';
+							if (data.offices[i]['office_id'] == data.office_id) {
+								html += 'selected="selected"';
+							}
+							html += 'value="' + data.offices[i]['office_id'] + '">' + data.offices[i]['office_code'] + ', ' + data.offices[i]['name'] + ', ' + data.offices[i]['address'] +  '</option>';
+						}
+
+						$('#office_id').html(html);
+						$('#office_code').val(office_code);
+						econtSubmit(false);
+					}
+				}
+			});
+		}
+	}
+//--></script>
+<script type="text/javascript"><!--
+var priority_time = '{{ priority_time }}';
+
+$(document).ready(function() {
+	$('#cd_yes').click(function() {
+		$('[name="payment_method"][value="payment_econt_cod"]').attr('checked', true);
+		$('[name="payment_method"][value="payment_econt_cod"]').parent().parent().show();
+		$('[name="payment_method"][value!="payment_econt_cod"]').parent().parent().hide();
+
+		econtSubmit(false);
+	});
+
+	$('#cd_no').click(function() {
+		$('[name="payment_method"][value="payment_econt_cod"]').attr('checked', false);
+		$('[name="payment_method"][value="payment_econt_cod"]').parent().parent().hide();
+		$('[name="payment_method"][value!="payment_econt_cod"]').parent().parent().show();
+
+		econtSubmit(false);
+	});
+
+	if ($('#cd_yes:checked').length) {
+		$('[name="payment_method"][value="payment_econt_cod"]').attr('checked', true);
+		$('[name="payment_method"][value="payment_econt_cod"]').parent().parent().show();
+		$('[name="payment_method"][value!="payment_econt_cod"]').parent().parent().hide();
+	} else {
+		$('[name="payment_method"][value="payment_econt_cod"]').attr('checked', false);
+		$('[name="payment_method"][value="payment_econt_cod"]').parent().parent().hide();
+		$('[name="payment_method"][value!="payment_econt_cod"]').parent().parent().show();
+	}
+});
+
+
+$('#button-shipping-method').off();
+$('#button-shipping-method').on('click', function() {
+	if ($('[name="shipping_method"][value^="econt."]:checked').length) {
+		econtSubmit(true);
+	} else {
+		econtShipping(true);
+	}
+	return false;
+});
+
+function getCitiesByCountryId(element) {
+		$('select#office_city_id').html('<option value="0">{{ text_select }}</option>');
+		$('select#office_id').html('<option value="0">{{ text_select }}</option>');
+		$('input#office_code').val('');
+		$('input#post_code').val('');
+		$('input#city').val('');
+		$('input#quarter').val('');
+		$('input#street').val('');
+		$('input#street_num').val('');
+		$('input#other').val('');
+		$('input#city_id').val('');
+
+		$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getCitiesByCountryId',
+		type: 'POST',
+		data: 'country_id=' + encodeURIComponent($(element).val()),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				html = '<option value="0">{{ text_select }}</option>';
+
+				for (i = 0; i < data.length; i++) {
+					html += '<option value="' + data[i]['city_id'] + '">' + data[i]['name'] + '</option>';
+				}
+
+				$('select#office_city_id').html(html);
+			}
+		}
+	});
+}
+
+function econtSubmit(next_step) {
+	$('.wait').remove();
+	$('#econt_form').prepend('<div class="wait"><img src="catalog/view/theme/default/image/loading.gif" alt="" /></div>');
+	econt_disabled = $('#econt_form :input :disabled');
+	$('#econt_form :input').removeAttr('disabled');
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt',
+		type: 'POST',
+		data: $('#econt_form').serialize() + '&next_step=' + (next_step ? 1 : 0),
+		dataType: 'json',
+		complete: function() {
+			econt_disabled.attr('disabled', true);
+		},
+		success: function(json) {
+			if (json) {
+				if (json.redirect) {
+					location = json.redirect;
+				} else if (json.submit) {
+					econtShipping(next_step);
+				} else {
+					$('#econt').html(json.html);
+				}
+			}
+		}
+	});
+}
+
+function econtShipping(next_step) {
+    $.ajax({
+        url: 'index.php?route=checkout/shipping_method/save',
+        type: 'post',
+        data: $('#collapse-shipping-method input[type=\'radio\']:checked, #collapse-shipping-method textarea'),
+        dataType: 'json',
+        beforeSend: function() {
+        	$('#button-shipping-method').button('loading');
+		},
+        complete: function() {
+			$('#button-shipping-method').button('reset');
+        },
+        success: function(json) {
+            $('.wait').remove();
+            $('.alert, .text-danger').remove();
+
+            if (json['redirect']) {
+                location = json['redirect'];
+            } else if (json['error']) {
+                if (json['error']['warning']) {
+                    $('#collapse-shipping-method .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                }
+            } else {
+				$('#econt_form').prepend('<div class="wait"><img src="catalog/view/theme/default/image/loading.gif" alt="" /></div>');
+
+				$.ajax({
+					url: 'index.php?route=checkout/shipping_method',
+					dataType: 'html',
+					success: function(html) {
+						$('.wait').remove();
+						$('#collapse-shipping-method .panel-body').html(html);
+
+						if (next_step) {
+							$.ajax({
+								url: 'index.php?route=checkout/payment_method',
+								dataType: 'html',
+								success: function(html) {
+									$('#collapse-payment-method .panel-body').html(html);
+
+									$('#collapse-payment-method').parent().find('.panel-heading .panel-title').html('<a href="#collapse-payment-method" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ text_checkout_payment_method }} <i class="fa fa-caret-down"></i></a>');
+
+									$('a[href=\'#collapse-payment-method\']').trigger('click');
+
+									$('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('{{ text_checkout_confirm }}');
+								}
+							});
+						}
+					}
+				});
+            }
+        }
+    });
+}
+
+function getOfficesByCityId(aps) {
+	if (!aps) {
+		$('#office_id').html('<option value="0">{{ text_wait }}</option>');
+		$('#office_code').val('');
+		office_city_id = $('#office_city_id').val();
+	} else {
+		$('#office_aps_id').html('<option value="0">{{ text_wait }}</option>');
+		$('#office_aps_code').val('');
+		office_city_id = $('#office_city_aps_id').val();
+	}
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getOfficesByCityId',
+		type: 'POST',
+		data: 'city_id=' + encodeURIComponent(office_city_id) + '&aps=' + encodeURIComponent(aps),
+		dataType: 'json',
+		success: function(data) {
+			if (data) {
+				html = '<option value="0">{{ text_select }}</option>';
+
+				for (i = 0; i < data.length; i++) {
+					html += '<option value="' + data[i]['office_id'] + '">' + data[i]['office_code'] + ', ' + data[i]['name'] + ', ' + data[i]['address'] +  '</option>';
+				}
+
+				if (!aps) {
+					$('#office_id').html(html);
+
+					econtSubmit(false);
+				} else {
+					$('#office_aps_id').html(html);
+
+					{% if not office_aps_calculated %}
+						econtSubmit(false);
+					{% endif %}
+				}
+			}
+		}
+	});
+}
+
+function getOffice() {
+		$('#office_code').val('');
+		office_id = $('#office_id').val();
+
+	$.ajax({
+		url: 'index.php?route=extension/shipping/econt/getOffice',
+		type: 'POST',
+		data: 'office_id=' + encodeURIComponent(office_id),
+		dataType: 'json',
+		success: function(data) {
+			if (data && data.office_code) {
+					econtSubmit(false);
+					$('#office_code').val(data.office_code);
+			}
+		}
+	});
+}
+
+function checkPriorityTime() {
+	if ($('#priority_time_cb:checked').length) {
+		$('#priority_time_type_id').removeAttr('disabled');
+		$('#priority_time_hour_id').removeAttr('disabled');
+	} else {
+		$('#priority_time_type_id').attr('disabled', 'disabled');
+		$('#priority_time_hour_id').attr('disabled', 'disabled');
+	}
+
+	econtSubmit(false);
+}
+
+//--></script>
+
+<script type="text/javascript"><!--
+$(document).ready(function() {
+	var sender_post_code = '{{ sender_post_code }}';
+	var econt_city = '{{ city }}';
+	var econt_quarter = '{{ quarter }}';
+	var econt_street = '{{ street }}';
+
+	$('#city').econtAutocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getCitiesByName&filter_name=' + encodeURIComponent(request),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label:     item['post_code'] + ' ' + item['name'],
+							value:     item['post_code'] + ' ' + item['name'],
+							name:      item['name'],
+							city_id:   item['city_id'],
+							post_code: item['post_code']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_city = item.name;
+				$('#city').val(item.name);
+				$('#city_id').val(item.city_id);
+				$('#post_code').val(item.post_code);
+				$('#quarter').val('');
+				$('#street').val('');
+				$('#street_num').val('');
+				$('#other').val('');
+
+				econtSubmit(false);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#city').val('');
+				$('#city_id').val('');
+				$('#post_code').val('');
+			}
+
+			$('#quarter').val('');
+			$('#street').val('');
+			$('#street_num').val('');
+			$('#other').val('');
+		}
+	});
+
+	$('#city').blur(function() {
+		if ($(this).val() != econt_city) {
+			$(this).val('');
+			$('#city_id').val('');
+			$('#post_code').val('');
+			$('#quarter').val('');
+			$('#street').val('');
+			$('#street_num').val('');
+			$('#other').val('');
+		}
+	});
+
+	$('#quarter').econtAutocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getQuartersByName&filter_name=' +  encodeURIComponent(request) + '&city_id=' +  encodeURIComponent($('#city_id').val()),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label: item['name'],
+							value: item['name']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_quarter = item.label;
+				$('#quarter').val(item['label']);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#quarter').val('');
+			}
+		}
+	});
+
+	$('#quarter').blur(function() {
+		if ($(this).val() != econt_quarter) {
+			$('#quarter').val('');
+		}
+	});
+
+	$('#street').econtAutocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=extension/shipping/econt/getStreetsByName&filter_name=' +  encodeURIComponent(request) + '&city_id=' +  encodeURIComponent($('#city_id').val()),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label: item['name'],
+							value: item['name']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			if (item) {
+				econt_street = item.label;
+				$('#street').val(item['label']);
+			}
+		},
+		'change': function(item) {
+			if(!item) {
+				$('#street').val('');
+			}
+		}
+	});
+
+	$('#street').blur(function() {
+		if ($(this).val() != econt_street) {
+			$('#street').val('');
+		}
+	});
+});
+//--></script>
