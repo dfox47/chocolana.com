@@ -348,13 +348,21 @@
 					<span class="block_checkout__desc">{{ text_delivery_to_ekont }}</span>
 				</label>
 
-				<label class="block_checkout__radio js-block_checkout__delivery_type" data-delivery-type="2">
+				<label class="block_checkout__radio js-block_checkout__delivery_type js-delivery-to-address" data-delivery-type="2">
 					<input type="radio" name="block_checkout__delivery_type" value="2" />
 
 					<span class="block_checkout__box"><span></span></span>
 
 					<span class="block_checkout__desc">{{ text_delivery_to_address }}</span>
 				</label>
+
+{#				<label class="block_checkout__radio js-block_checkout__delivery_type js-delivery-to-address-saturday" data-delivery-type="3">#}
+{#					<input type="radio" name="block_checkout__delivery_type" value="3" />#}
+
+{#					<span class="block_checkout__box"><span></span></span>#}
+
+{#					<span class="block_checkout__desc">{{ text_delivery_to_address_sat }}</span>#}
+{#				</label>#}
 
 				<div class="block_checkout__delivery_desc_special">
 					{{ text_delivery_special }}

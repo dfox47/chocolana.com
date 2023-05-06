@@ -149,7 +149,6 @@ function calc__form__submit() {
 	$('.calc').submit(calc__submit);
 
 
-
 	function calc__submit() {
 		var calc__form          = $(this);
 		var calc__box_type      = parseInt( $('.calc__box_type').find('input:checked').parent().attr('data-box-type') );
@@ -157,7 +156,6 @@ function calc__form__submit() {
 
 		// to get info only from selected layout type: 5x5 or 7x2
 		var calc__layout        = '.calc__layout_' + calc__box_type;
-
 
 
 		// check only active layout
@@ -196,7 +194,6 @@ function calc__form__submit() {
 				return false;
 			}
 		});
-
 
 
 		if ( calc__next_step > 0 ) {
@@ -240,7 +237,6 @@ function calc__form__submit() {
 			});
 			// add to cart [END]
 		}
-
 
 
 		return false;

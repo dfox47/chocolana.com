@@ -1,10 +1,10 @@
 var $ = jQuery.noConflict();
 
-
+var isDeliveryOnSaturday = false;
 
 $(window).on('load', function () {
-	var _html           = $('html');
-	var checkoutBlock   = $('.block_checkout');
+	var _html           		= $('html');
+	var checkoutBlock   		= $('.block_checkout');
 
 	cart_not_empty();
 
@@ -52,6 +52,17 @@ $(window).on('load', function () {
 			// return [ disabledDates.indexOf(string) == -1]
 		},
 		dateFormat: 'dd/mm/yy',
+		onSelect: function(){
+			var date = $(this).datepicker('getDate');
+			if (date.getDay() === 6) {
+				isDeliveryOnSaturday = true;
+			} else {
+				isDeliveryOnSaturday = false;
+			}
+			$(this).parent().removeClass('error').addClass('accepted');
+			checkSaturdayDeliveryChangePrice();
+			block_checkout__delivery_desc__active();
+		},
 
 		// start from Monday
 		firstDay: 1,
@@ -86,6 +97,7 @@ $(window).on('load', function () {
 		cart_total();
 
 		cart_not_empty();
+		checkSaturdayDeliveryChangePrice();
 	});
 
 
@@ -121,32 +133,35 @@ $(window).on('load', function () {
 		});
 
 		block_checkout__delivery_desc__active();
+	}
 
-		function block_checkout__delivery_desc__active() {
-			var data_delivery_type = $('.js-block_checkout__delivery_type').find('input:checked').parent().attr('data-delivery-type');
+	function block_checkout__delivery_desc__active() {
+		var data_delivery_type = $('.js-block_checkout__delivery_type').find('input:checked').parent().attr('data-delivery-type');
 
-			$('.js-block_checkout__delivery_type').removeClass('error');
+		$('.js-block_checkout__delivery_type').removeClass('error');
 
-			$('.js-block_checkout__delivery_type').removeClass('active');
+		$('.js-block_checkout__delivery_type').removeClass('active');
 
-			$('.block_checkout__delivery_desc').removeClass('active');
+		$('.block_checkout__delivery_desc').removeClass('active');
 
-			$('.js-block_checkout__delivery_type[data-delivery-type="' + data_delivery_type + '"]').addClass('active');
+		$('.js-block_checkout__delivery_type[data-delivery-type="' + data_delivery_type + '"]').addClass('active');
 
-			$('.block_checkout__delivery_desc[data-delivery-type="' + data_delivery_type + '"]').addClass('active');
+		$('.block_checkout__delivery_desc[data-delivery-type="' + data_delivery_type + '"]').addClass('active');
 
-
-
-			// change delivery price at the totals
-			if ( data_delivery_type == 1 ) {
-				$('.block_checkout__total_delivery').find('.block_checkout__total_number').text('6.10');
-			}
-			else {
-				$('.block_checkout__total_delivery').find('.block_checkout__total_number').text('8.00');
-			}
-
-			cart_total();
+		// change delivery price at the totals
+		if ( data_delivery_type == 1 ) {
+			$('.block_checkout__total_delivery').find('.block_checkout__total_number').text('6.80');
 		}
+		else {
+			// if Saturday , delivery to address is more expensive
+			if (isDeliveryOnSaturday) {
+				$('.block_checkout__total_delivery').find('.block_checkout__total_number').text('11.60');
+			} else {// other days
+				$('.block_checkout__total_delivery').find('.block_checkout__total_number').text('8.80');
+			}
+		}
+
+		cart_total();
 	}
 	// choose delivery type [END]
 
@@ -925,7 +940,23 @@ $(window).on('load', function () {
 });
 
 
+function checkSaturdayDeliveryChangePrice() {
+	var deliveryOptions = $('.js-block_checkout__delivery_type').find('input');
+	var descriptionElement;
 
+	// find the one with value 2, it's delivery to address
+	deliveryOptions.each(function () {
+		if ($(this).val() === "2") {
+			descriptionElement = $(this).parent().find('.block_checkout__desc')
+		};
+	});
+
+	if (isDeliveryOnSaturday) {
+		descriptionElement.text(descriptionElement.text().replace("8.8", "11.6"));
+	} else {
+		descriptionElement.text(descriptionElement.text().replace("11.6", "8.8"));
+	}
+}
 
 
 function comment_check() {
@@ -1362,7 +1393,11 @@ function block_checkout__form__submit() {
 														}
 														// delivery_home
 														else if ( block_checkout__form.find('input[name="block_checkout__delivery_type"]:checked').val() == 2 ) {
-															$('input[name="shipping_method"][value="flat.flat"]').prop('checked', true);
+															if (isDeliveryOnSaturday) {
+																$('input[name="shipping_method"][value="item.item"]').prop('checked', true);
+															} else {
+																$('input[name="shipping_method"][value="flat.flat"]').prop('checked', true);
+															}
 														}
 
 														// #button-shipping-method

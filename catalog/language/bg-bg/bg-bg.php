@@ -43,8 +43,9 @@ $_['text_delivery_surprise__desc']  = 'Доставка изненада озн�
 $_['text_delivery_surprise__email'] = 'E-mail на заказчика';
 $_['text_delivery_surprise__name']  = 'Име на заказчика';
 $_['text_delivery_surprise__phone'] = 'Номер на заказчика';
-$_['text_delivery_to_address']      = 'Доставка до адрес (8 лв)*';
-$_['text_delivery_to_ekont']        = 'Доставка до офис на Еконт (6.1 лв)*';
+$_['text_delivery_to_address']      = 'Доставка до адрес (8.8 лв)*';
+$_['text_delivery_to_address_sat']  = 'Доставка до адрес (11.6 лв)*';
+$_['text_delivery_to_ekont']        = 'Доставка до офис на Еконт (6.8 лв)*';
 $_['text_email']                    = 'E-mail на заказчика';
 $_['text_home']                     = '<i class="fa fa-home"></i>';
 $_['text_house_number']             = 'Номера на къщата';

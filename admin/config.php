@@ -8,11 +8,11 @@ define('HTTPS_SERVER', 'https://chocolana.com/admin/');
 define('HTTPS_CATALOG', 'https://chocolana.com/');
 
 // DIR
-define('DIR_APPLICATION', '/home/c/ct11905/chocolana.com/public_html/admin/');
-define('DIR_SYSTEM', '/home/c/ct11905/chocolana.com/public_html/system/');
-define('DIR_IMAGE', '/home/c/ct11905/chocolana.com/public_html/image/');
-define('DIR_STORAGE', '/home/c/ct11905/chocolana.com/storage/');
-define('DIR_CATALOG', '/home/c/ct11905/chocolana.com/public_html/catalog/');
+define('DIR_APPLICATION', '/home/chocolan/public_html/admin/');
+define('DIR_SYSTEM', '/home/chocolan/public_html/system/');
+define('DIR_IMAGE', '/home/chocolan/public_html/image/');
+define('DIR_STORAGE', '/home/chocolan/storage/');
+define('DIR_CATALOG', '/home/chocolan/public_html/catalog/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/template/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');
@@ -26,9 +26,9 @@ define('DIR_UPLOAD', DIR_STORAGE . 'upload/');
 // DB
 define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'ct11905_choko');
-define('DB_PASSWORD', 'JUafALF5');
-define('DB_DATABASE', 'ct11905_choko');
+define('DB_USERNAME', 'chocolan_chocol');
+define('DB_PASSWORD', 'wai1ui5I?zook1aGa');
+define('DB_DATABASE', 'chocolan_chocol');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'choko_');
 

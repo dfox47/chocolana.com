@@ -43,8 +43,9 @@ $_['text_delivery_surprise__desc']  = 'Delivery surprise means that the recipien
 $_['text_delivery_surprise__email'] = 'Recipient\'s email';
 $_['text_delivery_surprise__name']  = 'Customer\'s name';
 $_['text_delivery_surprise__phone'] = 'Customer\'s phone';
-$_['text_delivery_to_address']      = 'Delivery to address (8 lv)*';
-$_['text_delivery_to_ekont']        = 'Delivery to Ekont office (6.1 lv)*';
+$_['text_delivery_to_address']      = 'Delivery to address (8.8 lv)*';
+$_['text_delivery_to_address_sat']  = 'Delivery to address (11.6 lv)*';
+$_['text_delivery_to_ekont']        = 'Delivery to Ekont office (6.8 lv)*';
 $_['text_email']                    = 'Your email';
 $_['text_home']                     = '<i class="fa fa-home"></i>';
 $_['text_house_number']             = 'House number';

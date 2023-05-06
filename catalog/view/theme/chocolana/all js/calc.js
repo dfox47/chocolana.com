@@ -145,6 +145,7 @@ function calc__form__submit() {
 
 
 	function calc__submit() {
+		console.log('submit');
 		var calc__form          = $(this);
 		var calc__box_type      = parseInt( $('.calc__box_type').find('input:checked').parent().attr('data-box-type') );
 		var calc__next_step     = 0;

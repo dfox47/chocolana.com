@@ -44,8 +44,8 @@ $_['text_delivery']                 = 'Доставка:';
 $_['text_delivery_date']            = 'Дата доставки';
 $_['text_delivery_date_error']      = 'Укажите дату доставки';
 $_['text_delivery_special']         = '*Стоимость доставки может отличаться на несколько стотинок';
-$_['text_delivery_to_ekont']        = 'Доставка в офис Еконт (5.5 лв)*';
-$_['text_delivery_to_address']      = 'Доставка по адресу (7.5 лв)*';
+$_['text_delivery_to_ekont']        = 'Доставка в офис Еконт (6.8 лв)*';
+$_['text_delivery_to_address']      = 'Доставка по адресу (8.8 лв)*';
 
 $_['text_home']                     = '<i class="fa fa-home"></i>';
 $_['text_house_number']             = 'Номер дома';
