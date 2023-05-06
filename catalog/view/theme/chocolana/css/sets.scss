@@ -1,9 +1,3 @@
-@charset "utf-8";
-// sCSS Document
-
-
-
-// sets [START]
 .sets {
 	align-items: center;
 	display: flex;
@@ -28,8 +22,6 @@
 		background-color: $c_header;
 	}
 }
-
-
 
 .sets__item {
 	padding: 0 8px;
@@ -142,8 +134,6 @@
 	}
 }
 
-
-
 .sets__popup {
 	align-items: center;
 	display: none;
@@ -244,8 +234,6 @@
 	text-transform: uppercase;
 }
 
-
-
 .sets__title {
 	margin: 0 0 80px;
 
@@ -258,14 +246,10 @@
 	}
 }
 
-
-
 .sets__wrap {
 	padding: 100px 50px;
 	width: 100%;
 }
-
-
 
 @media only screen and (max-width: 1200px) {
 	.sets__item_title {
@@ -297,6 +281,3 @@
 		width: 100%;
 	}
 }
-// sets [END]
-
-

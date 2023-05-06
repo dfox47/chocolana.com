@@ -1,17 +1,8 @@
-@charset "utf-8";
-// sCSS Document
-
-
-
-// product [START]
 .product {
 	height: 100vh;
 	padding: 100px 0 0;
 }
 
-
-
-// product_added_to_cart [START]
 .product_added_to_cart {
 	align-items: center;
 	display: none;
@@ -28,51 +19,48 @@
 		right: 12px;
 		top: 12px;
 	}
-}
 
-.product_added_to_cart__active {
-	.product_added_to_cart {
-		display: flex;
+	&__active {
+		.product_added_to_cart {
+			display: flex;
+		}
 	}
-}
 
-.product_added_to_cart__bg {
-	background-color: #000;
-	display: block;
-	height: 100%;
-	left: 0;
-	opacity: .5;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	z-index: 1;
-}
+	&__bg {
+		background-color: #000;
+		display: block;
+		height: 100%;
+		left: 0;
+		opacity: .5;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
 
-.product_added_to_cart__content {
-	background-color: #fff;
-	color: #000;
-	display: block;
-	font-size: 20px;
-	padding: 80px;
-	position: relative;
-	text-transform: uppercase;
-	z-index: 3;
-
-	a,
-	a:visited {
+	&__content {
+		background-color: #fff;
 		color: #000;
-		display: inline-block;
-		text-decoration: underline;
-		transition: $transition;
+		display: block;
+		font-size: 20px;
+		padding: 80px;
+		position: relative;
+		text-transform: uppercase;
+		z-index: 3;
 
-		&:hover {
-			text-decoration: none;
+		a,
+		a:visited {
+			color: #000;
+			display: inline-block;
+			text-decoration: underline;
+			transition: $transition;
+
+			&:hover {
+				text-decoration: none;
+			}
 		}
 	}
 }
-// product_added_to_cart [END]
-
-
 
 .product__model__box__5_5 {
 	.product__option_item {
@@ -85,8 +73,6 @@
 		width: 13%;
 	}
 }
-
-
 
 .product__option {
 	display: flex;
@@ -142,8 +128,6 @@
 	display: none;
 }
 
-
-
 .product__radio {}
 
 .product__radio_list {
@@ -156,7 +140,3 @@
 	margin: 0 0 16px 0;
 	width: 50px;
 }
-// product [END]
-
-
-
