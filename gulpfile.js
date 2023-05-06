@@ -135,10 +135,8 @@ gulp.task('lang_ru', function () {
 
 
 gulp.task('copy_css', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/css/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/css/*')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localCss + '**/*')
+		.pipe(conn.dest(remoteCss))
 })
 
 gulp.task('copy_js', function () {
@@ -147,8 +145,8 @@ gulp.task('copy_js', function () {
 })
 
 gulp.task('copy_php', function () {
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/*.php')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localTheme + '*.php')
+		.pipe(conn.dest(remoteTheme))
 })
 
 gulp.task('js', function () {
@@ -166,25 +164,25 @@ gulp.task('js', function () {
 		.pipe(rename({
 			suffix: '.min'
 		}))
-		.pipe(conn.dest(remoteFolder))
+		.pipe(conn.dest(remoteTheme))
 })
 
 gulp.task('watch', function() {
 	gulp.watch('www/public_html/catalog/language/bg-bg/**/*',       gulp.series('lang_bg'))
 	gulp.watch('www/public_html/catalog/language/en-gb/**/*',       gulp.series('lang_en'))
 	gulp.watch('www/public_html/catalog/language/ru-ru/**/*',       gulp.series('lang_ru'))
-	gulp.watch(localFolder + '*.php',                               gulp.series('copy_php'))
-	gulp.watch(localFolder + 'template/account/*.twig',             gulp.series('html_account'))
-	gulp.watch(localFolder + 'template/affiliate/*.twig',           gulp.series('html_affiliate'))
-	gulp.watch(localFolder + 'template/checkout/*.twig',            gulp.series('html_checkout'))
-	gulp.watch(localFolder + 'template/common/*.twig',              gulp.series('html_common'))
-	gulp.watch(localFolder + 'template/error/*.twig',               gulp.series('html_error'))
-	gulp.watch(localFolder + 'template/extension/**/*.twig',        gulp.series('html_extension'))
-	gulp.watch(localFolder + 'template/information/*.twig',         gulp.series('html_information'))
-	gulp.watch(localFolder + 'template/mail/*.twig',                gulp.series('html_mail'))
-	gulp.watch(localFolder + 'template/product/*.twig',             gulp.series('html_product'))
-	gulp.watch(localCss + '**/*',                             gulp.series('css', 'copy_css'))
-	gulp.watch(localJs + '**/*.js',                           gulp.series('js', 'copy_js'))
+	gulp.watch(localTheme + '*.php',                                gulp.series('copy_php'))
+	gulp.watch(localAccount + '*.twig',                             gulp.series('html_account'))
+	gulp.watch(localTheme + 'template/affiliate/*.twig',            gulp.series('html_affiliate'))
+	gulp.watch(localTheme + 'template/checkout/*.twig',             gulp.series('html_checkout'))
+	gulp.watch(localTheme + 'template/common/*.twig',               gulp.series('html_common'))
+	gulp.watch(localTheme + 'template/error/*.twig',                gulp.series('html_error'))
+	gulp.watch(localTheme + 'template/extension/**/*.twig',         gulp.series('html_extension'))
+	gulp.watch(localTheme + 'template/information/*.twig',          gulp.series('html_information'))
+	gulp.watch(localTheme + 'template/mail/*.twig',                 gulp.series('html_mail'))
+	gulp.watch(localTheme + 'template/product/*.twig',              gulp.series('html_product'))
+	gulp.watch(localCss + '**/*',                                   gulp.series('css', 'copy_css'))
+	gulp.watch(localJs + '**/*',                                    gulp.series('js', 'copy_js'))
 })
 
 gulp.task('default', gulp.series('watch'))
