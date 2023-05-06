@@ -6,7 +6,7 @@ const ftp           = require('vinyl-ftp')
 const gulp          = require('gulp')
 const gutil         = require('gulp-util')
 const rename        = require('gulp-rename')
-const sass          = require('gulp-sass')
+const sass          = require('gulp-sass')(require('sass'))
 const uglify        = require('gulp-uglify')
 
 // FTP config
@@ -32,7 +32,7 @@ const remoteProduct     = remoteTheme + 'template/product/'
 const remoteCss         = remoteTheme + 'css/'
 const remoteJs          = remoteTheme + 'js/'
 
-const localTheme        = 'www/public_html/catalog/view/theme/chocolana/'
+const localTheme        = 'catalog/view/theme/chocolana/'
 const localAccount      = localTheme + 'template/account/'
 const localAffiliate    = localTheme + 'template/affiliate/'
 const localCheckout     = localTheme + 'template/checkout/'
@@ -40,7 +40,7 @@ const localCommon       = localTheme + 'template/common/'
 const localError        = localTheme + 'template/error/'
 const localExtension    = localTheme + 'template/extension/'
 const localInformation  = localTheme + 'template/information/'
-const localLang         = 'www/public_html/catalog/language/'
+const localLang         = 'catalog/language/'
 const localLangBg       = localLang + 'bg-bg/'
 const localLangEn       = localLang + 'en-gb/'
 const localLangRu       = localLang + 'ru-ru/'
