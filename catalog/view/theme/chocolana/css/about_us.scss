@@ -1,9 +1,3 @@
-@charset "utf-8";
-// sCSS Document
-
-
-
-// about_us [START]
 .about_us {
 	background-color: rgba(#000, .1);
 	height: 100vh;
@@ -134,8 +128,6 @@
 	}
 }
 
-
-
 .about_us__bg {
 	background: linear-gradient(to top, #000, rgba(#000, 0));
 	bottom: 0;
@@ -187,8 +179,6 @@
 	background-color: rgba(#000, .3);
 }
 
-
-
 .about_us__desc {
 	font-size: 25px;
 	line-height: 1.2;
@@ -198,8 +188,6 @@
 	display: inline-block;
 	text-align: left;
 }
-
-
 
 .about_us__desc_wrap {
 	display: block;
@@ -216,8 +204,6 @@
 	width: 22%;
 }
 
-
-
 .about_us__item {
 	background-position: center;
 	background-repeat: no-repeat;
@@ -233,8 +219,6 @@
 	margin: 0 0 10px;
 	text-transform: uppercase;
 }
-
-
 
 @media only screen and (max-width: 980px) {
 	.about_us {
@@ -263,6 +247,3 @@
 		width: 37%;
 	}
 }
-// about_us [END]
-
-
