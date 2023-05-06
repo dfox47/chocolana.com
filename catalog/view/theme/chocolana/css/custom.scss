@@ -123,13 +123,15 @@ textarea {
 	padding: 100px 0 0;
 }
 
-.checkout__iframe {
-	iframe {
-		height: 700px;
+.checkout {
+	&__iframe {
+		iframe {
+			height: 700px;
+		}
 	}
-}
 
-.checkout__wrap {}
+	&__wrap {}
+}
 
 .cookies {
 	background-color: $c_border;
@@ -146,25 +148,23 @@ textarea {
 	&.active {
 		display: block;
 	}
-}
 
-.cookies__btn,
-.cookies__btn:visited {
-	background-color: $c_hover;
-	color: #fff;
-	font-size: 22px;
-	margin: 0 8px;
-	padding: 12px 50px;
-	text-transform: uppercase;
+	&__btn {
+		background-color: $c_hover;
+		color: #fff;
+		font-size: 22px;
+		margin: 0 8px;
+		padding: 12px 50px;
+		text-transform: uppercase;
 
-	&:hover {
-		background-color: $c_header;
+		&:hover {
+			background-color: $c_header;
+		}
 	}
 }
 
 .default_form {}
 
-// feedback [START]
 .feedback {
 	margin: 0 auto;
 	max-width: 300px;
@@ -227,92 +227,91 @@ textarea {
 		height: 120px;
 		width: 100%;
 	}
-}
 
-.feedback__close {
-	background-color: #fff;
-	border-radius: 50%;
-	cursor: pointer;
-	height: 30px;
-	position: absolute;
-	right: -15px;
-	top: -15px;
-	width: 30px;
-	z-index: 3;
-
-	span {
-		background-color: #000;
-		display: block;
-		height: 2px;
-		left: 7px;
+	&__close {
+		background-color: #fff;
+		border-radius: 50%;
+		cursor: pointer;
+		height: 30px;
 		position: absolute;
-		top: 13px;
-		width: 16px;
-
-		&:first-child {
-			transform: rotate(45deg);
-		}
-
-		&:last-child {
-			transform: rotate(-45deg);
-		}
-	}
-}
-
-.feedback__msg {
-	display: none;
-	height: 100%;
-	left: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 9;
-
-	> span {
-		align-items: center;
-		background-color: rgba(#000, .5);
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		position: absolute;
-		width: 100%;
+		right: -15px;
+		top: -15px;
+		width: 30px;
 		z-index: 3;
 
-		> span {
+		span {
 			background-color: #000;
-			border-radius: 10px;
-			color: #fff;
 			display: block;
-			padding: 16px;
-			position: relative;
-			text-align: center;
-			text-transform: uppercase;
+			height: 2px;
+			left: 7px;
+			position: absolute;
+			top: 13px;
+			width: 16px;
+
+			&:first-child {
+				transform: rotate(45deg);
+			}
+
+			&:last-child {
+				transform: rotate(-45deg);
+			}
 		}
 	}
 
-	&.active {
-		display: block;
-	}
-}
-
-.feedback__submit {
-	span {
-		background-color: #000;
-		color: #fff;
-		cursor: pointer;
-		display: block;
-		padding: 16px 10px;
-		text-align: center;
-		transition: $transition;
+	&__msg {
+		display: none;
+		height: 100%;
+		left: 0;
+		position: fixed;
+		top: 0;
 		width: 100%;
+		z-index: 9;
 
-		&:hover {
-			background-color: #fff;
-			color: #000;
+		> span {
+			align-items: center;
+			background-color: rgba(#000, .5);
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			position: absolute;
+			width: 100%;
+			z-index: 3;
+
+			> span {
+				background-color: #000;
+				border-radius: 10px;
+				color: #fff;
+				display: block;
+				padding: 16px;
+				position: relative;
+				text-align: center;
+				text-transform: uppercase;
+			}
+		}
+
+		&.active {
+			display: block;
+		}
+	}
+
+	&__submit {
+		span {
+			background-color: #000;
+			color: #fff;
+			cursor: pointer;
+			display: block;
+			padding: 16px 10px;
+			text-align: center;
+			transition: $transition;
+			width: 100%;
+
+			&:hover {
+				background-color: #fff;
+				color: #000;
+			}
 		}
 	}
 }
-// feedback [END]
 
 .hr_1 {
 	background-color: $c_border;
@@ -324,53 +323,51 @@ textarea {
 	display: none;
 }
 
-.incognito_mode__off {}
+.incognito_mode {
+	&__off {}
 
-.incognito_mode__on {
-	.popup_incognito {
-		display: flex;
+	&__on {
+		.popup_incognito {
+			display: flex;
+		}
 	}
 }
 
-// inst [START]
-.inst {}
-
-.inst__img,
-.inst__img:visited {
-	display: block;
-	position: relative;
-	transition: $transition;
-	width: 50%;
-
-	&:after {
-		content: "";
+.inst {
+	&__img {
 		display: block;
-		padding: 0 0 100%;
+		position: relative;
+		transition: $transition;
+		width: 50%;
+
+		&:after {
+			content: "";
+			display: block;
+			padding: 0 0 100%;
+		}
+
+		&:hover {
+			opacity: .5;
+		}
+
+		span {
+			background-size: cover;
+			height: 90%;
+			left: 5%;
+			position: absolute;
+			top: 5%;
+			width: 90%;
+			z-index: 3;
+		}
 	}
 
-	&:hover {
-		opacity: .5;
-	}
-
-	span {
-		background-size: cover;
-		height: 90%;
-		left: 5%;
-		position: absolute;
-		top: 5%;
-		width: 90%;
-		z-index: 3;
+	&__wrap {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 	}
 }
 
-.inst__wrap {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-}
-// inst [END]
-
-// lang [START]
 .lang {
 	color: #fff;
 	cursor: pointer;
@@ -454,16 +451,26 @@ textarea {
 			}
 		}
 	}
-}
 
-.lang__desktop {}
+	&__desktop {
+		@media #{$desktop} {
+			display: none;
+		}
+	}
 
-.lang__mobile {
-	display: none;
-}
+	&__mobile {
+		display: none;
 
-@media only screen and (max-width: 1100px) {
-	.lang {
+		@media #{$desktop} {
+			display: block;
+
+			.fa {
+				display: none;
+			}
+		}
+	}
+
+	@media #{$desktop} {
 		display: inline-block;
 
 		&:hover {
@@ -488,24 +495,9 @@ textarea {
 			}
 		}
 	}
-
-	.lang__desktop {
-		display: none;
-	}
-
-	.lang__mobile {
-		display: block;
-
-		.fa {
-			display: none;
-		}
-	}
 }
-// lang [END]
 
-// logo [START]
-.logo,
-.logo:visited {
+.logo {
 	color: #fff;
 	display: inline-block;
 	font-size: 14px;
@@ -515,25 +507,23 @@ textarea {
 	text-decoration: none;
 	text-transform: uppercase;
 	width: 100%;
-}
 
-@media only screen and (max-width: 600px) {
-	.logo,
-	.logo:visited {
+	@media #{$tablet} {
 		max-width: 50px;
 	}
 }
-// logo [END]
 
-.menu_top__hide {
-	&.header__mobile_menu__active {
-		.header {
-			top: 0;
+.menu_top {
+	&__hide {
+		&.header__mobile_menu__active {
+			.header {
+				top: 0;
+			}
 		}
-	}
 
-	.header {
-		top: -300px;
+		.header {
+			top: -300px;
+		}
 	}
 }
 
@@ -614,26 +604,20 @@ textarea {
 	}
 }
 
-// subtitle [START]
 .subtitle {
 	font-size: 26px;
 	margin: 0 0 16px;
 	text-align: center;
 	text-transform: uppercase;
-}
 
-@media only screen and (max-width: 600px) {
-	.subtitle {
+	@media #{$mobile} {
 		font-size: 20px;
 	}
-}
 
-@media only screen and (max-width: 400px) {
-	.subtitle {
+	@media #{$mobile_s} {
 		font-size: 17px;
 	}
 }
-// subtitle [END]
 
 .table {}
 
