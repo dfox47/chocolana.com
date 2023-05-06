@@ -15,15 +15,23 @@ const password      = config.password
 const port          = config.port
 const user          = config.user
 
-const remoteTheme   = '/public_html/catalog/view/theme/chocolana/'
-const remoteAccount = remoteTheme + 'template/account/'
-const remoteCss     = remoteTheme + 'css/'
-const remoteJs      = remoteTheme + 'js/'
+const remoteTheme       = '/public_html/catalog/view/theme/chocolana/'
+const remoteAccount     = remoteTheme + 'template/account/'
+const remoteAffiliate   = remoteTheme + 'template/affiliate/'
+const remoteCheckout    = remoteTheme + 'template/checkout/'
+const remoteCommon      = remoteTheme + 'template/common/'
+const remoteError       = remoteTheme + 'template/error/'
+const remoteCss         = remoteTheme + 'css/'
+const remoteJs          = remoteTheme + 'js/'
 
-const localTheme    = 'www/public_html/catalog/view/theme/chocolana/'
-const localAccount  = localTheme + 'template/account/'
-const localCss      = localTheme + 'css/'
-const localJs       = localTheme + 'js/'
+const localTheme        = 'www/public_html/catalog/view/theme/chocolana/'
+const localAccount      = localTheme + 'template/account/'
+const localAffiliate    = localTheme + 'template/affiliate/'
+const localCheckout     = localTheme + 'template/checkout/'
+const localCommon       = localTheme + 'template/common/'
+const localError        = localTheme + 'template/error/'
+const localCss          = localTheme + 'css/'
+const localJs           = localTheme + 'js/'
 
 function getFtpConnection() {
 	return ftp.create({
@@ -56,31 +64,23 @@ gulp.task('html_account', function () {
 })
 
 gulp.task('html_affiliate', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/affiliate/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/affiliate/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localAffiliate + '*.twig')
+		.pipe(conn.dest(remoteAffiliate))
 })
 
 gulp.task('html_checkout', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/checkout/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/checkout/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localCheckout + '*.twig')
+		.pipe(conn.dest(remoteCheckout))
 })
 
 gulp.task('html_common', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/common/';
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/common/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localCommon + '*.twig')
+		.pipe(conn.dest(remoteCommon))
 })
 
 gulp.task('html_error', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/error/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/error/*.twig')
-		.pipe(conn.dest(remoteFolder));
+	return gulp.src(localError + '*.twig')
+		.pipe(conn.dest(remoteError));
 })
 
 gulp.task('html_extension', function () {
@@ -141,7 +141,7 @@ gulp.task('copy_css', function () {
 
 gulp.task('copy_js', function () {
 	return gulp.src(localJs + '**/*')
-		.pipe(conn.dest(remoteFolderJs))
+		.pipe(conn.dest(remoteJs))
 })
 
 gulp.task('copy_php', function () {
@@ -173,7 +173,7 @@ gulp.task('watch', function() {
 	gulp.watch('www/public_html/catalog/language/ru-ru/**/*',       gulp.series('lang_ru'))
 	gulp.watch(localTheme + '*.php',                                gulp.series('copy_php'))
 	gulp.watch(localAccount + '*.twig',                             gulp.series('html_account'))
-	gulp.watch(localTheme + 'template/affiliate/*.twig',            gulp.series('html_affiliate'))
+	gulp.watch(localAffiliate + '*.twig',                           gulp.series('html_affiliate'))
 	gulp.watch(localTheme + 'template/checkout/*.twig',             gulp.series('html_checkout'))
 	gulp.watch(localTheme + 'template/common/*.twig',               gulp.series('html_common'))
 	gulp.watch(localTheme + 'template/error/*.twig',                gulp.series('html_error'))
