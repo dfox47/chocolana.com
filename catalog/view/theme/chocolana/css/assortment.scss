@@ -1,15 +1,8 @@
-@charset "utf-8";
-// sCSS Document
-
-
-
 .assortment {
 	align-items: center;
 	display: flex;
 	min-height: 100vh;
 }
-
-
 
 .assortment_modal {
 	background-color: rgba(#000, .5);
@@ -61,8 +54,6 @@
 	position: relative;
 }
 
-
-
 .assortment__item {
 	cursor: pointer;
 	padding: 16px 10px;
@@ -96,16 +87,12 @@
 	text-transform: uppercase;
 }
 
-
-
 .assortment__list {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	width: 100%;
 }
-
-
 
 .assortment__wrap {
 	padding: 100px 0;
@@ -164,5 +151,3 @@
 		width: 100%;
 	}
 }
-
-

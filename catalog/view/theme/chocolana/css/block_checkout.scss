@@ -1,8 +1,3 @@
-@charset "utf-8";
-// sCSS Document
-
-
-
 .block_checkout {
 	background-color: rgba(#000, .05);
 	display: none;
@@ -79,8 +74,6 @@
 	}
 }
 
-
-
 .block_checkout__checkbox {
 	display: block;
 	margin: 8px 0;
@@ -112,8 +105,6 @@
 	}
 }
 
-
-
 .block_checkout__comment__desc {
 	align-items: center;
 	display: flex;
@@ -139,8 +130,6 @@
 	}
 }
 
-
-
 // block_checkout__delivery [START]
 .block_checkout__delivery {
 	margin: 64px 0;
@@ -160,8 +149,6 @@
 }
 // block_checkout__delivery [END]
 
-
-
 // block_checkout__delivery_surprise [START]
 .block_checkout__delivery_surprise {
 	margin: 64px 0;
@@ -178,19 +165,13 @@
 }
 // block_checkout__delivery_surprise [END]
 
-
-
 .block_checkout__desc {
 	display: inline-block;
 	font-size: 15px;
 	vertical-align: middle;
 }
 
-
-
 .block_checkout__ekont {}
-
-
 
 .block_checkout__input {
 	display: block;
@@ -223,8 +204,6 @@
 	}
 }
 
-
-
 .block_checkout__payment_desc {
 	display: none;
 
@@ -236,8 +215,6 @@
 .block_checkout__payment {
 	margin: 64px 0;
 }
-
-
 
 .block_checkout__radio {
 	display: block;
@@ -264,8 +241,6 @@
 	}
 }
 
-
-
 .block_checkout__submit {
 	background-color: $c_hover;
 	color: #fff;
@@ -289,8 +264,6 @@
 		position: absolute;
 	}
 }
-
-
 
 .block_checkout__title {
 	font-size: 12px;
@@ -320,8 +293,6 @@
 	}
 }
 
-
-
 // block_checkout__total [START]
 .block_checkout__total {
 	font-size: 18px;
@@ -347,15 +318,11 @@
 }
 // block_checkout__total [END]
 
-
-
 .block_checkout__warning {
 	background: url(/image/icons/warning.svg) 0 0 no-repeat scroll transparent;
 	min-height: 40px;
 	padding: 0 0 0 40px;
 }
-
-
 
 @media only screen and (max-width: 830px) {
 	.block_checkout {
@@ -380,5 +347,3 @@
 		font-size: 14px;
 	}
 }
-
-

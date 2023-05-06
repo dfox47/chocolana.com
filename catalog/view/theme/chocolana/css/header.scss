@@ -1,15 +1,5 @@
-@charset "utf-8";
-// sCSS Document
-// Powered by foxartbox | info@foxartbox.com
-
-@media only screen and (max-width: 600px) {}
-
-
-
 .header {
-	//background-color: #000;
 	background-color: $c_header;
-	//background-color: #ff1493;
 	color: #fff;
 	left: 0;
 	position: fixed;
@@ -18,8 +8,6 @@
 	width: 100%;
 	z-index: 9;
 }
-
-
 
 .header__cart {
 	background-size: contain;
@@ -57,8 +45,6 @@
 		width: 100%;
 	}
 }
-
-
 
 // header__mobile_menu [START]
 .header__mobile_menu__active {}
@@ -106,10 +92,7 @@
 }
 // header__mobile_menu [END]
 
-
-
-.header__phone,
-.header__phone:visited {
+.header__phone {
 	color: #fff;
 	text-decoration: none;
 
@@ -164,5 +147,3 @@
 		padding: 8px 0;
 	}
 }
-
-
