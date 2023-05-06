@@ -155,8 +155,6 @@ else {
 	";
 }
 
-
-
 // If all values exist, send the email
 // if ( $sender_name && $sender_email && $sender_message && !empty($recaptcha) ) {
 if ( $calc__box_type ) {
@@ -165,8 +163,6 @@ if ( $calc__box_type ) {
 //	$headers .= "From: " . $sender_name . " <" . $sender_email . ">";
 	$success = mail($recipient, EMAIL_SUBJECT, $message, $headers);
 }
-
-
 
 // Return an appropriate response to the browser
 if (isset($_GET["ajax"])) {
@@ -190,5 +186,3 @@ else { ?>
 		</body>
 	</html>
 <?php } ?>
-
-
