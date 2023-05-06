@@ -1,29 +1,9 @@
-@charset "utf-8";
-// sCSS Document
-// Powered by foxartbox | info@foxartbox.com
-
-/*
-	* Elements hierarchy:
-		* Standart class
-		* ID
-		* Other classes
-		* Different screen sizes
-*/
-
-
-
-
-
-
-
 // Standart class [START]
 @keyframes spin {
 	100% {
 		transform: rotate(360deg);
 	}
 }
-
-
 
 body {
 	font-family: $font_main;
@@ -37,9 +17,6 @@ h1 {
 	text-transform: uppercase;
 }
 
-
-
-// h2 [START]
 h2 {
 	//font-family: $font_montserrat_bold;
 	font-size: 33px;
@@ -47,28 +24,19 @@ h2 {
 	letter-spacing: .1em;
 	margin: 0 0 2em;
 	text-align: center;
-}
 
-@media only screen and (max-width: 600px) {
-	h2 {
+	@media only screen and (max-width: 600px) {
 		font-size: 24px;
 	}
-}
 
-@media only screen and (max-width: 400px) {
-	h2 {
+	@media only screen and (max-width: 400px) {
 		font-size: 20px;
 	}
 }
-// h2 [END]
-
-
 
 h4 {
 	font-size: 20px;
 }
-
-
 
 html {
 	font-family: $font_main;
@@ -90,8 +58,6 @@ textarea {
 
 #cart__content {}
 
-
-
 #top {
 	padding: 128px 0 0;
 }
@@ -109,8 +75,6 @@ textarea {
 	margin: 0 auto;
 	max-width: 680px;
 }
-
-
 
 .btn,
 .btn:visited {
@@ -149,21 +113,15 @@ textarea {
 	}
 }
 
-
-
 .buy {
 	background-color: rgba(#000, .3);
 	height: 100vh;
 	padding: 100px 0 0;
 }
 
-
-
 .container {
 	padding: 100px 0 0;
 }
-
-
 
 .checkout__iframe {
 	iframe {
@@ -172,8 +130,6 @@ textarea {
 }
 
 .checkout__wrap {}
-
-
 
 .cookies {
 	background-color: $c_border;
@@ -879,8 +835,6 @@ textarea {
 	visibility: hidden;
 }
 
-
-
 .wrap {
 	margin: 0 auto;
 	max-width: 1090px;
@@ -889,11 +843,3 @@ textarea {
 	width: 100%;
 }
 // help classes [END]
-
-
-
-
-
-
-
-
