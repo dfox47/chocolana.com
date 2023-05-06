@@ -15,13 +15,13 @@ const password      = config.password
 const port          = config.port
 const user          = config.user
 
-const remoteTheme      = '/chocolana.com/public_html/catalog/view/theme/chocolana/'
-const remoteCss         = remoteTheme + 'css/'
-const remoteJs          = remoteTheme + 'js/'
+const remoteTheme   = '/public_html/catalog/view/theme/chocolana/'
+const remoteCss     = remoteTheme + 'css/'
+const remoteJs      = remoteTheme + 'js/'
 
-const localFolder         = 'www/public_html/catalog/view/theme/chocolana/'
-const localFolderCss      = localFolder + 'css/'
-const localFolderJs       = localFolder + 'js/'
+const localTheme    = 'www/public_html/catalog/view/theme/chocolana/'
+const localCss      = localTheme + 'css/'
+const localJs       = localTheme + 'js/'
 
 function getFtpConnection() {
 	return ftp.create({
@@ -39,7 +39,7 @@ const conn = getFtpConnection()
 
 
 gulp.task('css', function () {
-	return gulp.src(localFolderCss + 'styles.scss')
+	return gulp.src(localCss + 'styles.scss')
 		.pipe(sass())
 		.pipe(cssMinify())
 		.pipe(rename({
@@ -142,7 +142,7 @@ gulp.task('copy_css', function () {
 })
 
 gulp.task('copy_js', function () {
-	return gulp.src(localFolderJs + '**/*')
+	return gulp.src(localJs + '**/*')
 		.pipe(conn.dest(remoteFolderJs))
 })
 
@@ -153,13 +153,13 @@ gulp.task('copy_php', function () {
 
 gulp.task('js', function () {
 	return gulp.src([
-		localFolderJs + 'jquery-3.3.1.js',
-		localFolderJs + 'jquery-ui.js',
-		localFolderJs + 'jquery.ui.touch-punch.min.js',
-		localFolderJs + 'jquery.mask.js',
-		localFolderJs + 'owl.carousel.min.js',
-		localFolderJs + 'cart.js',
-		localFolderJs + '**/*.js'
+		localJs + 'jquery-3.3.1.js',
+		localJs + 'jquery-ui.js',
+		localJs + 'jquery.ui.touch-punch.min.js',
+		localJs + 'jquery.mask.js',
+		localJs + 'owl.carousel.min.js',
+		localJs + 'cart.js',
+		localJs + '**/*.js'
 	])
 		.pipe(concat('all.js'))
 		.pipe(uglify())
@@ -183,8 +183,8 @@ gulp.task('watch', function() {
 	gulp.watch(localFolder + 'template/information/*.twig',         gulp.series('html_information'))
 	gulp.watch(localFolder + 'template/mail/*.twig',                gulp.series('html_mail'))
 	gulp.watch(localFolder + 'template/product/*.twig',             gulp.series('html_product'))
-	gulp.watch(localFolderCss + '**/*',                             gulp.series('css', 'copy_css'))
-	gulp.watch(localFolderJs + '**/*.js',                           gulp.series('js', 'copy_js'))
+	gulp.watch(localCss + '**/*',                             gulp.series('css', 'copy_css'))
+	gulp.watch(localJs + '**/*.js',                           gulp.series('js', 'copy_js'))
 })
 
 gulp.task('default', gulp.series('watch'))
