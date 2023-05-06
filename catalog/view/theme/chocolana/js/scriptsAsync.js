@@ -1,6 +1,9 @@
 // async scripts
+const $asyncFolder = '/catalog/view/theme/chocolana/js/async/'
+
 const scripts = [
-	'/templates/p3week_2k18/js/async/yandexMetrika.js',
+	$asyncFolder + 'yandexMetrika.js',
+	$asyncFolder + 'facebookPixel.js',
 	// 'https://www.googletagmanager.com/gtag/js?id=UA-129076025-1'
 ]
 
