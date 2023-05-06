@@ -162,11 +162,7 @@ textarea {
 	}
 }
 
-
-
 .default_form {}
-
-
 
 // feedback [START]
 .feedback {
@@ -318,21 +314,15 @@ textarea {
 }
 // feedback [END]
 
-
-
 .hr_1 {
 	background-color: $c_border;
 	height: 5px;
 	margin: 0;
 }
 
-
-
 .icons {
 	display: none;
 }
-
-
 
 .incognito_mode__off {}
 
@@ -341,8 +331,6 @@ textarea {
 		display: flex;
 	}
 }
-
-
 
 // inst [START]
 .inst {}
@@ -381,8 +369,6 @@ textarea {
 	justify-content: space-between;
 }
 // inst [END]
-
-
 
 // lang [START]
 .lang {
@@ -517,8 +503,6 @@ textarea {
 }
 // lang [END]
 
-
-
 // logo [START]
 .logo,
 .logo:visited {
@@ -541,8 +525,6 @@ textarea {
 }
 // logo [END]
 
-
-
 .menu_top__hide {
 	&.header__mobile_menu__active {
 		.header {
@@ -554,8 +536,6 @@ textarea {
 		top: -300px;
 	}
 }
-
-
 
 .powered_by {
 	background-color: rgba(#000, .7);
@@ -600,8 +580,6 @@ textarea {
 	}
 }
 
-
-
 .p_privacy {
 	a,
 	a:visited {
@@ -633,24 +611,6 @@ textarea {
 	}
 }
 
-
-
-// TODO delete
-.screensize {
-	background-color: #fff;
-	border-radius: 0 10px 0 0;
-	bottom: 0;
-	display: none;
-	font-size: 10px;
-	left: 0;
-	opacity: .85;
-	padding: 8px;
-	position: fixed;
-	z-index: 999;
-}
-
-
-
 // subtitle [START]
 .subtitle {
 	font-size: 26px;
@@ -671,8 +631,6 @@ textarea {
 	}
 }
 // subtitle [END]
-
-
 
 .table {}
 
@@ -720,8 +678,6 @@ textarea {
 		text-transform: uppercase;
 	}
 }
-
-
 
 // topmenu [START]
 .topmenu {
@@ -802,8 +758,6 @@ textarea {
 }
 // topmenu [END]
 
-
-
 // ui [START]
 .ui {}
 
@@ -828,8 +782,6 @@ textarea {
 	}
 }
 // ui [END]
-
-
 
 .visibility_hidden {
 	visibility: hidden;
