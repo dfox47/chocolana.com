@@ -1,46 +1,17 @@
-@charset "utf-8";
-// sCSS Document
-// Powered by foxartbox | info@foxartbox.com
-
-
-
-$c_main:                    #ededed;
-$c_input_bg:                #9fa0a5;
-$c_offline_bg:              #676a73;
-
 $c_border:                  #ccc;
-
-//$c_hover:                   #70b800;
-$c_hover:                   #9ad38e;
-
-
-
-$c_sweet__bg_default:       #974d30;
-
 $c_dot:                     #e34295;
-
 $c_header:                  #fa5154;
+$c_hover:                   #9ad38e;
+$c_input_bg:                #9fa0a5;
+$c_main:                    #ededed;
+$c_offline_bg:              #676a73;
+$c_sweet__bg_default:       #974d30;
 
 $transition:                all .3s ease-in-out;
 
+$font_intro:        'intro',        Arial, Helvetica, sans-serif;
 
-
-$font_intro:                    'intro',                    Arial, Helvetica, sans-serif;
-
-$font_main:                     'Montserrat',               Arial, Helvetica, sans-serif;
-//$font_main:                     'montserrat_reg',           Arial, Helvetica, sans-serif;
-
-//$font_montserrat_black:         'montserrat_black',         Arial, Helvetica, sans-serif;
-//$font_montserrat_bold:          'montserrat_bold',          Arial, Helvetica, sans-serif;
-//$font_montserrat_extra_bold:    'montserrat_extra_bold',    Arial, Helvetica, sans-serif;
-//$font_montserrat_extra_light:   'montserrat_extra_light',   Arial, Helvetica, sans-serif;
-//$font_montserrat_light:         'montserrat_light',         Arial, Helvetica, sans-serif;
-//$font_montserrat_medium:        'montserrat_medium',        Arial, Helvetica, sans-serif;
-//$font_montserrat_reg:           'montserrat_reg',           Arial, Helvetica, sans-serif;
-//$font_montserrat_semi_bold:     'montserrat_semi_bold',     Arial, Helvetica, sans-serif;
-//$font_montserrat_thin:          'montserrat_thin',          Arial, Helvetica, sans-serif;
-
-
+$font_main:         'Montserrat',   Arial, Helvetica, sans-serif;
 
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800&amp;subset=cyrillic,cyrillic-ext,latin-ext);
 
@@ -136,5 +107,3 @@ $font_main:                     'Montserrat',               Arial, Helvetica, sa
 	url('fonts/montserrat_thin.woff') format('woff'),
 	url('fonts/montserrat_thin.ttf') format('truetype');
 }
-
-
