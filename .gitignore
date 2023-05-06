@@ -1,3 +1,5 @@
 /image
 config.php
 /admin/config.php
+/admin/.htpasswd
+/admin/.htaccess
