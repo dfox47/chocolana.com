@@ -21,6 +21,8 @@ const remoteAffiliate   = remoteTheme + 'template/affiliate/'
 const remoteCheckout    = remoteTheme + 'template/checkout/'
 const remoteCommon      = remoteTheme + 'template/common/'
 const remoteError       = remoteTheme + 'template/error/'
+const remoteExtension   = remoteTheme + 'template/extension/'
+const remoteInformation = remoteTheme + 'template/information/'
 const remoteCss         = remoteTheme + 'css/'
 const remoteJs          = remoteTheme + 'js/'
 
@@ -30,6 +32,8 @@ const localAffiliate    = localTheme + 'template/affiliate/'
 const localCheckout     = localTheme + 'template/checkout/'
 const localCommon       = localTheme + 'template/common/'
 const localError        = localTheme + 'template/error/'
+const localExtension    = localTheme + 'template/extension/'
+const localInformation  = localTheme + 'template/information/'
 const localCss          = localTheme + 'css/'
 const localJs           = localTheme + 'js/'
 
@@ -59,42 +63,38 @@ gulp.task('css', function () {
 })
 
 gulp.task('html_account', function () {
-	return gulp.src(localAccount + '*.twig')
+	return gulp.src(localAccount + '**/*')
 		.pipe(conn.dest(remoteAccount))
 })
 
 gulp.task('html_affiliate', function () {
-	return gulp.src(localAffiliate + '*.twig')
+	return gulp.src(localAffiliate + '**/*')
 		.pipe(conn.dest(remoteAffiliate))
 })
 
 gulp.task('html_checkout', function () {
-	return gulp.src(localCheckout + '*.twig')
+	return gulp.src(localCheckout + '**/*')
 		.pipe(conn.dest(remoteCheckout))
 })
 
 gulp.task('html_common', function () {
-	return gulp.src(localCommon + '*.twig')
+	return gulp.src(localCommon + '**/*')
 		.pipe(conn.dest(remoteCommon))
 })
 
 gulp.task('html_error', function () {
-	return gulp.src(localError + '*.twig')
+	return gulp.src(localError + '**/*')
 		.pipe(conn.dest(remoteError));
 })
 
 gulp.task('html_extension', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/extension/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/extension/**/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localExtension + '**/*')
+		.pipe(conn.dest(remoteExtension))
 })
 
 gulp.task('html_information', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/information/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/information/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localInformation + '**/*')
+		.pipe(conn.dest(remoteInformation))
 })
 
 gulp.task('html_mail', function () {
