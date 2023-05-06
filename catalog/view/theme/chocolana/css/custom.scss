@@ -18,7 +18,6 @@ h1 {
 }
 
 h2 {
-	//font-family: $font_montserrat_bold;
 	font-size: 33px;
 	font-weight: 700;
 	letter-spacing: .1em;
@@ -411,9 +410,7 @@ textarea {
 	}
 
 	span {
-		//background-color: #000;
 		background-color: $c_header;
-		//border: 2px solid rgba(#000, .9);
 		border: 2px solid rgba($c_header, .9);
 		display: inline-block;
 		padding: 8px;
@@ -421,7 +418,6 @@ textarea {
 	}
 
 	ul {
-		//background-color: #000;
 		background-color: $c_header;
 		display: none;
 		padding: 0 0 10px;
@@ -666,7 +662,6 @@ textarea {
 	}
 }
 
-// topmenu [START]
 .topmenu {
 	align-items: center;
 	color: #fff;
@@ -677,8 +672,7 @@ textarea {
 	margin: 0;
 	text-transform: uppercase;
 
-	a,
-	a:visited {
+	a {
 		color: #fff;
 		display: inline-block;
 		outline: 0 none;
@@ -707,10 +701,8 @@ textarea {
 			}
 		}
 	}
-}
 
-@media only screen and (max-width: 1100px) {
-	.topmenu {
+	@media #{$desktop} {
 		display: none;
 		height: 100%;
 		left: 0;
@@ -722,13 +714,11 @@ textarea {
 		width: 100%;
 		z-index: -1;
 
-		a,
-		a:visited {
+		a {
 			padding: 16px 8px;
 		}
 
 		li {
-			//background-color: #000;
 			background-color: $c_header;
 
 			&:last-child {
@@ -736,14 +726,11 @@ textarea {
 			}
 		}
 	}
-}
 
-@media only screen and (max-width: 600px) {
-	.topmenu {
+	@media #{$mobile} {
 		padding: 53px 0 0;
 	}
 }
-// topmenu [END]
 
 // ui [START]
 .ui {}
@@ -753,21 +740,17 @@ textarea {
 	max-width: 680px;
 	overflow-x: hidden;
 	overflow-y: auto;
-}
 
-.ui-menu {}
-
-@media only screen and (max-width: 600px) {
-	.ui-autocomplete {
+	@media #{$mobile} {
 		max-width: 340px;
 	}
-}
 
-@media only screen and (max-width: 400px) {
-	.ui-autocomplete {
+	@media #{$mobile_s} {
 		max-width: 260px;
 	}
 }
+
+.ui-menu {}
 // ui [END]
 
 .visibility_hidden {
