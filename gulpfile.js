@@ -16,10 +16,12 @@ const port          = config.port
 const user          = config.user
 
 const remoteTheme   = '/public_html/catalog/view/theme/chocolana/'
+const remoteAccount = remoteTheme + 'template/account/'
 const remoteCss     = remoteTheme + 'css/'
 const remoteJs      = remoteTheme + 'js/'
 
 const localTheme    = 'www/public_html/catalog/view/theme/chocolana/'
+const localAccount  = localTheme + 'template/account/'
 const localCss      = localTheme + 'css/'
 const localJs       = localTheme + 'js/'
 
@@ -49,10 +51,8 @@ gulp.task('css', function () {
 })
 
 gulp.task('html_account', function () {
-	const remoteFolder = '/chocolana.com/public_html/catalog/view/theme/chocolana/template/account/'
-
-	return gulp.src('www/public_html/catalog/view/theme/chocolana/template/account/*.twig')
-		.pipe(conn.dest(remoteFolder))
+	return gulp.src(localAccount + '*.twig')
+		.pipe(conn.dest(remoteAccount))
 })
 
 gulp.task('html_affiliate', function () {
