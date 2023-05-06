@@ -367,6 +367,16 @@ textarea {
 	}
 }
 
+.inst_links {
+	display: grid;
+
+	&__img {
+		max-width: 100px;
+	}
+
+	&__link {}
+}
+
 .lang {
 	color: #fff;
 	cursor: pointer;
