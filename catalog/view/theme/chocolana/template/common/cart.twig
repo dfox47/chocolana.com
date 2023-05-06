@@ -1,8 +1,6 @@
 <div id="cart">
 	<button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}" class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
 
-
-
 	<div id="cart__content" class="cart__content">
 		{% if products or vouchers %}
 			<table class="cart_table">
@@ -91,5 +89,3 @@
 		{% endif %}
 	</div>
 </div>
-
-
