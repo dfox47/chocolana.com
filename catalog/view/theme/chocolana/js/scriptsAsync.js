@@ -14,5 +14,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			$script.src = scripts[i]
 			document.head.appendChild($script)
 		}
-	}, 3000)
+	}, 5000)
 })
