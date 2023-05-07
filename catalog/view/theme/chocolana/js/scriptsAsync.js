@@ -2,8 +2,9 @@
 const $asyncFolder = '/catalog/view/theme/chocolana/js/async/'
 
 const scripts = [
-	$asyncFolder + 'yandexMetrika.js',
 	$asyncFolder + 'facebookPixel.js',
+	$asyncFolder + 'googleTag.js',
+	$asyncFolder + 'yandexMetrika.js',
 	// 'https://www.googletagmanager.com/gtag/js?id=UA-129076025-1'
 ]
 
