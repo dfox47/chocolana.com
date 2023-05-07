@@ -1,11 +1,9 @@
-var $ = jQuery.noConflict();
+let $ = jQuery.noConflict()
 
 $('.gotop').click(function () {
 	$('body, html').animate({
 		scrollTop: 0
-	}, 700);
+	}, 700)
 
-	return false;
-});
-
-
+	return false
+})

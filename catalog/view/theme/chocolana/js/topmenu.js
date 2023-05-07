@@ -42,7 +42,6 @@ $(window).on('load', function () {
 
 	function menu_top__show_on_mouse_scroll() {
 		let iCurScrollPos = $(this).scrollTop()
-		const $html = $('html')
 
 		// scroll down
 		if (iCurScrollPos > iScrollPos && $(window).scrollTop() > 80 ) {
