@@ -1,4 +1,4 @@
-let $ = jQuery.noConflict()
+var $ = jQuery.noConflict()
 
 $('.gotop').click(function () {
 	$('body, html').animate({

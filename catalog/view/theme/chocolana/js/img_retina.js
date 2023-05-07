@@ -1,4 +1,4 @@
-let $ = jQuery.noConflict()
+var $ = jQuery.noConflict()
 
 $(window).on('load', function () {
 	var retina = window.devicePixelRatio > 1

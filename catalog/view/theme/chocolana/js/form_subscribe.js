@@ -1,7 +1,7 @@
-let $ = jQuery.noConflict()
+var $ = jQuery.noConflict()
 
 $(function() {
-	const $html                     = $(html)
+	const $html                     = $('html')
 	const form_subscribe            = $('.form_subscribe')
 	const form_subscribe__email     = form_subscribe.find('input[type="email"]')
 	const location                  = window.location.href
